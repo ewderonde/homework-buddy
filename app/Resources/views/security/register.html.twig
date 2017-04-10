@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://getbootstrap.com/examples/signin/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Registreren - Homework Buddy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href=".{{ asset('css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
+    <link href=".{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body style="background-color: #F5F5F5;">
+
+<div class="container">
+    <div class="registration-wrapper d-flex justify-content-center">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id' : 'sign-up-form'}} ) }}
+            <h2 class="form-signin-heading">Registreren</h2>
+            <div class="form-group">
+                {{ form_label(form.firstName, null, {'label_attr': {'class': 'cols-sm-2 control-label'}}) }}
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Vul hier uw voornaam in'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.lastName, null, {'label_attr': {'class': 'cols-sm-2 control-label'}}) }}
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Vul hier uw achternaam in'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, null, {'label_attr': {'class': 'cols-sm-2 control-label'}}) }}
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Vul hier uw emailadres in'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.password.first, null, {'label_attr': {'class': 'cols-sm-2 control-label'}}) }}
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Kies een wachtwoord', 'autocomplete': 'off'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.password.second, null, {'label_attr': {'class': 'cols-sm-2 control-label'}}) }}
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Herhaal uw wachtwoord'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary btn-lg btn-block', 'style': 'cursor:pointer;'}}) }}
+            </div>
+            <div class="login-register">
+                <a href="{{ path('login') }}">Inloggen</a>
+            </div>
+            <div class="login-register">
+                {% if error|default %}
+                    <div class="alert alert-danger">
+                        {{ error.message|trans([], 'security') }}
+                    </div>
+                {% endif %}
+            </div>
+            {% if error|default %}<p>{{ error }}</p> {% endif %}
+        {{ form_end(form) }}
+    </div>
+
+</div> <!-- /container -->
+
+<style>
+    .registration-wrapper {
+        margin-top:225px;
+    }
+    #sign-up-form {
+        background-color: #FFFFFF;
+        padding: 30px;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        border-radius:5px;
+    }
+</style>
+
+</body></html>

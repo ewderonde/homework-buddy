@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://getbootstrap.com/examples/signin/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Succes! - Homework Buddy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href=".{{ asset('css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body style="background-color: #F5F5F5;">
+
+<div class="container">
+    <div class="wrapper d-flex justify-content-center">
+        <div class="wrapper-wrapper">
+            <h2 class="form-signin-heading">Geregistreerd!</h2>
+            <p>Uw account is geregistreerd en is klaar voor gebruik!</p><p>Druk op de onderstaande knop om in te loggen.</p>
+            <a href="{{ path('login') }}" class="btn btn-lg btn-primary btn-block" style="cursor: pointer;" type="submit">Login</a>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+<style>
+    .wrapper {
+        margin-top:225px;
+    }
+    .wrapper-wrapper {
+        background-color: #FFFFFF;
+        padding: 30px;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        border-radius:5px;
+    }
+</style>
+
+</body></html>

@@ -1,0 +1,21 @@
+logout:
+    path: /logout
+
+login:
+    path: /login
+    defaults:
+        _controller: app.controller.security:loginAction
+
+register:
+    path: /register
+    defaults:
+        _controller: app.controller.user:registerAction
+
+register_success:
+    path: /register-success
+    defaults:
+        _controller: app.controller.user:registerSuccessAction
+
+dashboard:
+    path: /dashboard
+    defaults: { _controller: app.controller.dashboard:indexAction }

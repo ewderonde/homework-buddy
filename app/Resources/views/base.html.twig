@@ -3,11 +3,280 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+            <link type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+            <link href=".{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+            <link type="text/css" href="{{ asset('css/navbar.css') }}">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container">
+            <div class="row" style="margin-top:-8px;">
+                <div id="wrapper">
+                    <!-- Sidebar -->
+                    <div id="sidebar-wrapper">
+
+                        <ul class="sidebar-nav" style="margin-left:0;">
+                            <li class="sidebar-brand">
+                                <a href="#menu-toggle"  id="menu-toggle" style="margin-top:20px;float:right;" > <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                            </li>
+                            {#<li>#}
+                                {#<a href="#"> <i class="fa fa-tachometer " aria-hidden="true"> </i> <span style="margin-left:10px;">Dashboard</span> </a>#}
+                            {#</li>#}
+                            <li>
+                                <a href="#"> <i class="fa fa-tachometer " aria-hidden="true"> </i> <span style="margin-left:10px;">Dashboard</span> </a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="fa fa-book" aria-hidden="true"> </i> <span style="margin-left:10px;">Vakken</span> </a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="fa fa-bar-chart" aria-hidden="true"> </i> <span style="margin-left:10px;">Cijfers</span> </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-cog" aria-hidden="true"> </i> <span style="margin-left:10px;">Beheren</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /#sidebar-wrapper -->
+
+                    <!-- Page Content -->
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+
+                                    <!-- Content block -->
+                                    {% block body %}{% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% block basicstyles %}
+            <style>
+                body {
+                    overflow-x: hidden;
+                    font-family: 'Open Sans', sans-serif;
+                }
+
+                /* Toggle Styles */
+
+                #wrapper {
+                    padding-left: 0;
+                    -webkit-transition: all 0.6s ease;
+                    -moz-transition: all 0.6s ease;
+                    -o-transition: all 0.6s ease;
+                    transition: all 0.6s ease;
+
+                }
+
+                #wrapper.toggled {
+                    padding-left: 200px;
+                }
+
+                #sidebar-wrapper {
+                    z-index: 1000;
+                    position: fixed;
+                    left: 250px;
+
+                    width: 0;
+                    height: 100%;
+                    margin-left: -250px;
+                    overflow-y: auto;
+                    background-color:#312A25 !Important;
+
+                    -webkit-transition: all 0.5s ease;
+                    -moz-transition: all 0.5s ease;
+                    -o-transition: all 0.5s ease;
+                    transition: all 0.5s ease;
+                }
+
+                #wrapper.toggled #sidebar-wrapper {
+                    width: 0;
+                }
+
+                #page-content-wrapper {
+                    width: 100%;
+                    position: absolute;
+                    padding: 10px;
+                }
+
+                #wrapper.toggled #page-content-wrapper {
+                    position: absolute;
+                    margin-left:30px;
+                }
+
+                /* Sidebar Styles */
+
+                .sidebar-nav {
+                    position: absolute;
+                    top: 0;
+                    right:10px;
+                    width: 220px;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                }
+
+                .sidebar-nav li {
+                    text-indent: 20px;
+                    line-height: 40px;
+                }
+
+                .sidebar-nav li a {
+                    display: block;
+                    text-decoration: none;
+                    color: #999999;
+                }
+
+                .sidebar-nav li a:hover {
+                    text-decoration: none;
+                    color: #fff;
+                    background: #312A25;
+                }
+
+                .sidebar-nav li a:active,
+                .sidebar-nav li a:focus {
+                    text-decoration: none;
+                }
+
+                .sidebar-nav > .sidebar-brand {
+                    height: 65px;
+                    font-size: 18px;
+                    line-height: 60px;
+                }
+
+                .sidebar-nav > .sidebar-brand a {
+                    color: #999999;
+                }
+
+                .sidebar-nav > .sidebar-brand a:hover {
+                    color: #fff;
+                    background: none;
+                }
+
+                @media(min-width:768px) {
+                    #wrapper {
+                        padding-left: 220px;
+                    }
+
+                    #wrapper.toggled {
+                        padding-left: 0;
+                    }
+
+                    #sidebar-wrapper {
+                        width: 220px;
+                    }
+
+                    #wrapper.toggled #sidebar-wrapper {
+                        width: 35px;
+
+
+                    }
+
+                    #wrapper.toggled span {
+                        visibility:hidden;
+
+                    }
+                    #wrapper.toggled   i {
+                        float:right;
+                    }
+
+                    #page-content-wrapper {
+                        padding: 20px;
+                        position: relative;
+                    }
+
+                    #wrapper.toggled #page-content-wrapper {
+                        position: relative;
+                        margin-right: 0;
+                    }
+                }
+
+
+                @media(max-width:414px) {
+
+                    #wrapper.toggled #page-content-wrapper {
+                        position: absolute;
+                        margin-right:60px;
+                    }
+
+                    #wrapper.toggled {
+                        padding-right: 60px;
+                    }
+
+                    #wrapper {
+                        padding-left: 20px;
+                    }
+
+                    #wrapper.toggled {
+                        padding-left: 0;
+                    }
+
+                    #sidebar-wrapper {
+                        width: 50px;
+                    }
+
+                    #wrapper.toggled #sidebar-wrapper {
+                        width: 140px;
+
+
+                    }
+
+                    #wrapper.toggled span {
+                        visibility:visible;
+                        position:relative;
+                        left:70px;
+                        bottom:13px;
+
+                    }
+
+                    #wrapper span {
+                        visibility:hidden;
+
+                    }
+                    #wrapper.toggled   i {
+                        float:right;
+                    }
+
+                    #wrapper   i {
+                        float:right;
+                    }
+
+                    #page-content-wrapper {
+                        padding: 5px;
+                        position: relative;
+                    }
+
+                    #wrapper.toggled #page-content-wrapper {
+                        position: relative;
+                        margin-right: 0;
+                    }
+                }
+
+            </style>
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/tether.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/navbar.js') }}"></script>
+
+            <script>
+                $("#menu-toggle").click(function(e) {
+                    e.preventDefault();
+                    $("#wrapper").toggleClass("toggled");
+                });
+            </script>
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,9 @@
+services:
+
+# Forms
+    app.form.user:
+        class: AppBundle\Form\UserType
+        arguments:
+            - '@translator'
+        tags:
+            - { name: form.type }
