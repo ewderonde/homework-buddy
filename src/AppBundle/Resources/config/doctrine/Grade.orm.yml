@@ -1,0 +1,28 @@
+AppBundle\Entity\Grade:
+    type: entity
+    table: grade
+    # repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        grade:
+            column: grade
+            type: float
+        description:
+            column: description
+            type: string
+            length: 255
+    manyToOne:
+        subject:
+            targetEntity: AppBundle\Entity\Subject
+            inversedBy: grades
+            joinColumn:
+                name: subject_id
+                referenceColumnName: id
+                onDelete: CASCADE

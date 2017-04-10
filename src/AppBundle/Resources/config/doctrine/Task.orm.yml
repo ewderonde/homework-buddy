@@ -1,0 +1,61 @@
+AppBundle\Entity\Task:
+    type: entity
+    table: task
+    # repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        title:
+            column: title
+            type: string
+            length: 60
+        description:
+            column: description
+            type: string
+            length: 255
+        date:
+            column: datetime
+            type: date
+        timeStart:
+            column: time_start
+            type: datetime
+            nullable: true
+        timeEnd:
+            column: time_end
+            type: datetime
+            nullable: true
+        status:
+            column: status
+            type: boolean
+
+
+    manyToOne:
+        creator:
+            targetEntity: AppBundle\Entity\User
+            inversedBy: createdTasks
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        schedule:
+            targetEntity: AppBundle\Entity\Schedule
+            inversedBy: tasks
+            joinColumn:
+                name: schedule_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        subject:
+            targetEntity: AppBundle\Entity\Subject
+            inversedBy: tasks
+            joinColumn:
+                name: subject_id
+                referencedColumnName: id
+                onDelete: CASCADE
+
+    lifecycleCallbacks: {  }

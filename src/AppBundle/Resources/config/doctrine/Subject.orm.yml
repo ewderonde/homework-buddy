@@ -1,27 +1,36 @@
-AppBundle\Entity\Schedule:
+AppBundle\Entity\Subject:
     type: entity
-    table: schedule
+    table: subject
     # repositoryClass: AppBundle\Repository\UserRepository
     id:
         id:
             type: integer
-            nullable: falseon
+            nullable: false
             id: true
             generator:
                 strategy: AUTO
 
     fields:
-        date:
-            column: datetime
-            type: date
+        title:
+            column: title
+            type: string
+            length: 60
+        description:
+            column: description
+            type: string
+            length: 255
+
     oneToMany:
         tasks:
             targetEntity: AppBundle\Entity\Task
-            mappedBy: schedule
+            mappedBy: subject
+        grades:
+            targetEntity: AppBundle\Entity\Grade
+            mappedBy: subject
     manyToOne:
         profile:
             targetEntity: AppBundle\Entity\Profile
-            inversedBy: schedules
+            inversedBy: subjects
             joinColumn:
                 name: profile_id
                 referenceColumnName: id

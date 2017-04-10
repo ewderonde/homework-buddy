@@ -23,5 +23,8 @@ AppBundle\Entity\Profile:
         schedules:
             targetEntity: AppBundle\Entity\Schedule
             mappedBy: profile
+        subjects:
+            targetEntity: AppBundle\Entity\Subject
+            mappedBy: profile
 
     lifecycleCallbacks: {  }
