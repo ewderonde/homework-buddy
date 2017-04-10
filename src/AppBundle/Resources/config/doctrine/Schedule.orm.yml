@@ -1,0 +1,30 @@
+AppBundle\Entity\Schedule:
+    type: entity
+    table: schedule
+    # repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            nullable: falseon
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        date:
+            column: date
+            type: date
+    oneToMany:
+        tasks:
+            targetEntity: AppBundle\Entity\Task
+            mappedBy: schedule
+    manyToOne:
+        profile:
+            targetEntity: AppBundle\Entity\Profile
+            inversedBy: schedules
+            joinColumn:
+                name: profile_id
+                referenceColumnName: id
+                onDelete: CASCADE
+
+    lifecycleCallbacks: {  }

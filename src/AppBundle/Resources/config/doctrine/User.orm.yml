@@ -1,0 +1,40 @@
+AppBundle\Entity\User:
+    type: entity
+    table: user
+    # repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        firstName:
+            column: first_name
+            type: string
+            length: 60
+        lastName:
+            column: last_name
+            type: string
+            length: 60
+        email:
+            column: email
+            type: string
+            unique: true
+            length: 60
+        password:
+            column: password
+            type: string
+            nullable: true
+            length: 255
+    oneToMany:
+        userHasProfiles:
+            targetEntity: AppBundle\Entity\UserHasProfile
+            mappedBy: user
+        createdTasks:
+            targetEntity: AppBundle\Entity\Task
+            mappedBy: creator
+
+    lifecycleCallbacks: {  }

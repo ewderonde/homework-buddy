@@ -1,0 +1,27 @@
+AppBundle\Entity\UserHasProfile:
+    type: entity
+    table: user_has_profile
+    id:
+        id:
+            type: integer
+            nullable: false
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        user:
+            targetEntity: AppBundle\Entity\User
+            inversedBy: userHasProfiles
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        profile:
+            targetEntity: AppBundle\Entity\Profile
+            inversedBy: profileHasUsers
+            joinColumn:
+                name: profile_id
+                referencedColumnName: id
+                onDelete: CASCADE
+
+    lifecycleCallbacks: {  }

@@ -1,0 +1,27 @@
+AppBundle\Entity\Profile:
+    type: entity
+    table: profile
+    # repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        title:
+            column: title
+            type: string
+            length: 60
+
+    oneToMany:
+        profileHasUsers:
+            targetEntity: AppBundle\Entity\UserHasProfile
+            mappedBy: profile
+        schedules:
+            targetEntity: AppBundle\Entity\Schedule
+            mappedBy: profile
+
+    lifecycleCallbacks: {  }
