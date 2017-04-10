@@ -40,7 +40,7 @@ class SecurityController extends BaseController
             'last_username' => $lastUsername,
             'error'         => $error,
         );
-        Debug::dump($error);
+
         return new Response($this->templating->render('security/login.html.twig', $params));
     }
 }

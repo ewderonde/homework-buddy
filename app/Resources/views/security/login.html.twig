@@ -27,7 +27,7 @@
     <div class="login-wrapper d-flex justify-content-center">
 
         <form id="sign-in-form" class="form-signin" method="post" action="{{ path('login') }}">
-
+            <input type="hidden" name="_target_path" value="dashboard" />
             <h2 class="form-signin-heading">Vul uw gegevens in</h2>
             {% if error %}
                 <div class="form-group">
@@ -45,7 +45,7 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" style="cursor: pointer;" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" style="cursor: pointer;" type="submit">Login</button>
             <a href="{{ path('register') }}">Registreren</a>
         </form>
     </div>
