@@ -2,12 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Homework Buddy{% endblock %}</title>
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-            <link type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-            <link href=".{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
-            <link type="text/css" href="{{ asset('css/navbar.css') }}">
+            <link href="{{ asset('bundles/css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
+            {#<link href="{{ asset('bundles/css/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet">#}
+            <link href="{{ asset('bundles/css/datepicker-custom.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/css/main.css') }}" rel="stylesheet">
+
+            <link href="{{ asset('bundles/css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -23,13 +28,12 @@
                                 <a href="#menu-toggle"  id="menu-toggle" style="margin-top:20px;float:right;" > <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true" aria-hidden="true"></i></a>
                             </li>
                             <li>
-                            </li>
-                            {#<li>#}
-                                {#<a href="#"> <i class="fa fa-tachometer " aria-hidden="true"> </i> <span style="margin-left:10px;">Dashboard</span> </a>#}
-                            {#</li>#}
-                            <li>
                                 <a href="{{ path('dashboard') }}"> <i class="fa fa-tachometer " aria-hidden="true"> </i> <span style="margin-left:10px;">Dashboard</span> </a>
                             </li>
+                            <li>
+                                <a href="{{ path('agenda_index') }}"> <i class="fa fa-calendar-check-o" aria-hidden="true"> </i> <span style="margin-left:10px;">Agenda</span> </a>
+                            </li>
+
                             <li>
                                 <a href="#"> <i class="fa fa-book" aria-hidden="true"> </i> <span style="margin-left:10px;">Vakken</span> </a>
                             </li>
@@ -50,10 +54,12 @@
                     <div id="page-content-wrapper">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-lg-12">
-
-
+                                <div class="col-lg-12 pull-left">
                                     <!-- Content block -->
+                                    <div class="content-header row left">
+                                        <h2>{{ title }}</h2>
+
+                                    </div>
                                     {% block body %}{% endblock %}
                                 </div>
                             </div>
@@ -66,6 +72,29 @@
 
         {% block basicstyles %}
             <style>
+                hr.title-separator {
+                    display: block;
+                    height: 1px;
+                    border: 0;
+                    border-top: 1px solid #cccccc;
+                    margin: 1em 0;
+                    padding-left:10px;
+                }
+                hr {
+                    -moz-border-bottom-colors: none;
+                    -moz-border-image: none;
+                    -moz-border-left-colors: none;
+                    -moz-border-right-colors: none;
+                    -moz-border-top-colors: none;
+                    border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+                    border-style: solid none;
+                    border-width: 1px 0;
+                    margin: 18px 0;
+                }
+            </style>
+
+
+            <style>
                 body {
                     overflow-x: hidden;
                     font-family: 'Open Sans', sans-serif;
@@ -75,10 +104,10 @@
 
                 #wrapper {
                     padding-left: 0;
-                    -webkit-transition: all 0.6s ease;
-                    -moz-transition: all 0.6s ease;
-                    -o-transition: all 0.6s ease;
-                    transition: all 0.6s ease;
+                    -webkit-transition: all 0.4s linear;
+                    -moz-transition: all 0.4s linear;
+                    -o-transition: all 0.4s linear;
+                    transition: all 0.4s linear;
 
                 }
 
@@ -97,10 +126,10 @@
                     overflow-y: auto;
                     background-color:#312A25 !Important;
 
-                    -webkit-transition: all 0.5s ease;
-                    -moz-transition: all 0.5s ease;
-                    -o-transition: all 0.5s ease;
-                    transition: all 0.5s ease;
+                    -webkit-transition: all 0.4s linear;
+                    -moz-transition: all 0.4s linear;
+                    -o-transition: all 0.4s linear;
+                    transition: all 0.4s linear;
                 }
 
                 #wrapper.toggled #sidebar-wrapper {
@@ -110,7 +139,7 @@
                 #page-content-wrapper {
                     width: 100%;
                     position: absolute;
-                    padding: 10px;
+
                 }
 
                 #wrapper.toggled #page-content-wrapper {
@@ -196,7 +225,7 @@
 
                     #page-content-wrapper {
                         padding: 20px;
-                        position: relative;
+
                     }
 
                     #wrapper.toggled #page-content-wrapper {
@@ -269,10 +298,12 @@
             </style>
         {% endblock %}
         {% block javascripts %}
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/tether.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/navbar.js') }}"></script>
+            <script src="{{ asset('bundles/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('bundles/css/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bundles/js/tether.min.js') }}"></script>
+            <script src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/js/agenda.js') }}"></script>
+            {#<script src="{{ asset('bundles/js/bootstrap-datepicker.min.js') }}"></script>#}
 
             <script>
                 $("#menu-toggle").click(function(e) {

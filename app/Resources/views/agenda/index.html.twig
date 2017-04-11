@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="">
+            <div title="agenda-menu">
+                <div class="col-lg-6">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <a href="{{ path('agenda_index', {'view':'1'}) }}" class="btn btn-secondary {% if view == '1' %}active{% endif %}" style="cursor:pointer;">Dag</a>
+                            <a href="{{ path('agenda_index', {'view':'2'}) }}" class="btn btn-secondary {% if view == '2' %}active{% endif %}" style="cursor:pointer;">Week</a>
+                            <a href="{{ path('agenda_index', {'view':'3'}) }}" class="btn btn-secondary {% if view == '3' %}active{% endif %}" style="cursor:pointer;">Maand</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+
+                            <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;">
+                                {% if view == '1' %}
+                                    {{ day }}
+                                {% elseif view == '2' %}
+                                    Week {{ week }}
+                                {% else %}
+                                    {{ month_name }}
+                                {% endif %}
+                            </a>
+                            <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;"><i class="fa fa-calendar" aria-hidden="true"></i></a>
+
+                        </div>
+                    </div>
+                    <div class="datepicker hidden"></div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-center">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        {% if view == '1' %}
+            Agenda.day('{{ day }}');
+        {% elseif view == '2' %}
+        console.log('week');
+            Agenda.week('{{ week }}', '{{ year }}');
+        {% else %}
+            Agenda.month();
+        {% endif %}
+    </script>
+{% endblock %}

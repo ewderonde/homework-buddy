@@ -10,7 +10,8 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\User;
-use AppBundle\Service\AppService;
+use AppBundle\Service\AgendaService;
+use AppBundle\Service\FilterService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -89,9 +90,18 @@ class BaseController extends Controller
     protected $authenticationUtils;
 
     /**
+     * @var AgendaService
+     */
+    protected $agendaService;
+    /**
      * @var User
      */
     protected $user;
+
+    /**
+     * @var FilterService
+     */
+    protected $filterService;
 
     public function __construct(
         EngineInterface $templating,
@@ -104,7 +114,9 @@ class BaseController extends Controller
         ContainerInterface $container,
         AuthenticationUtils $authenticationUtils,
         TokenStorageInterface $tokenStorage,
-        AuthorizationCheckerInterface $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker,
+        AgendaService $agendaService,
+        FilterService $filterService
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
@@ -118,6 +130,9 @@ class BaseController extends Controller
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->authenticationUtils = $authenticationUtils;
+        $this->agendaService = $agendaService;
+        $this->filterService = $filterService;
+
         // Get authenticated user.
         $this->user = $tokenStorage->getToken()->getUser();
     }

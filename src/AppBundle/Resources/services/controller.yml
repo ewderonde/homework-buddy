@@ -19,6 +19,8 @@ services:
         - '@security.authentication_utils'
         - '@security.token_storage'
         - '@security.authorization_checker'
+        - '@app.service.agenda'
+        - '@app.service.filter'
 
   app.controller.dashboard:
     class: AppBundle\Controller\DashboardController
@@ -31,3 +33,7 @@ services:
   app.controller.user:
       class: AppBundle\Controller\UserController
       parent: app.controller.base
+
+  app.controller.agenda:
+        class: AppBundle\Controller\AgendaController
+        parent: app.controller.base

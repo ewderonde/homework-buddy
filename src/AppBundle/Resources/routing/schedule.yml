@@ -1,0 +1,4 @@
+schedule_index:
+    path: /schedules
+    defaults:
+        _controller: app.controller.security:loginAction

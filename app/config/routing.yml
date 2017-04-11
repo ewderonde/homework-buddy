@@ -5,3 +5,11 @@ app:
 default:
     prefix: /
     resource: '@AppBundle/Resources/routing/default.yml'
+
+schedule:
+    prefix: /schedule
+    resource: '@AppBundle/Resources/routing/schedule.yml'
+
+agenda:
+    prefix: /agenda
+    resource: '@AppBundle/Resources/routing/agenda.yml'

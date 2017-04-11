@@ -1,20 +1,12 @@
-#services:
-#
-## Services
-#
-#
-#    app.service.app:
-#        class: AppBundle\Service\AppService
-#        arguments:
-#            - '@app.service.user'
-#
-#    app.service.base:
-#        class: AppBundle\Service\BaseService
-#        arguments:
-#            - '@doctrine.orm.entity_manager'
-#            - '@app.manager.mail'
-#            - '@security.authorization_checker'
-#
-#    app.service.user:
-#        class: AppBundle\Service\UserService
-#        parent: app.service.base
+services:
+
+  app.service.agenda:
+      class: AppBundle\Service\AgendaService
+      arguments:
+          - '@doctrine.orm.entity_manager'
+
+  app.service.filter:
+      class: AppBundle\Service\FilterService
+      arguments:
+          - '@session'
+          - '@request_stack'
