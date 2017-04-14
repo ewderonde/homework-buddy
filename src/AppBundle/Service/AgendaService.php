@@ -21,9 +21,21 @@ class AgendaService
 
         $date_for_monday = date( 'd-m-Y', $timestamp_for_monday );
         $date_for_sunday = date( 'd-m-Y', $timestamp_for_sunday );
-        Debug::dump($date_for_monday);
-        Debug::dump($date_for_sunday);
 
         return ['start' => $date_for_monday, 'end' => $date_for_sunday];
+    }
+
+    public function getMonthInterval($monthNumber, $year) {
+        $month = $monthNumber+1;
+
+        $query_date = '1-'.$month."-".$year;
+
+        // First day of the month.
+        $first = date('01-m-Y', strtotime($query_date));
+
+        // Last day of the month.
+        $last = date('t-m-Y', strtotime($query_date));
+
+        return ['start' => $first, 'end' => $last];
     }
 }
