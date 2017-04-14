@@ -19,6 +19,7 @@ class AgendaController extends BaseController
         $this->filterService->setFilters();
         $params = $this->filterService->getValues();
         $params['title'] = 'Agenda';
+        $params['current_path'] = 'agenda';
 
         $taskRepository = $this->em->getRepository('AppBundle:Task');
 

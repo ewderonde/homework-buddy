@@ -76,7 +76,7 @@
             {% if view == '1' %}
                 <div class="content-box-large">
                     <div class="panel-heading">
-                        <div class="panel-title no-padding" >{% if day == "now"|date('d-n-Y')%}Vandaag - {{ day }} {% else %}{{ day }}{% endif %}</div>
+                        <div class="panel-title no-padding" >{% if day == "now"|date('d-m-Y')%}<strong>Vandaag - {{ day }}</strong>{% else %}{{ day }}{% endif %}</div>
 
                         <div class="panel-options">
                             <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-date="{{ day }}" data-action="{{ path('create_task') }}">
@@ -98,7 +98,8 @@
                                 </thead>
                                 <tbody>
                                     {% for task in tasks %}
-                                        <tr>
+                                        <tr class="{% if task.timeStart is not empty and task.timeStart < "now"|date() and task.status == 1 %}danger
+                                                    {% elseif task.date|date('d-m-Y') < "now"|date('d-m-Y') %}danger {% endif %}">
                                             <td class="col-md-2">{{ task.title }}</td>
                                             <td class="col-md-5">{{ task.description }}</td>
                                             <td class="col-md-2">{{ task.subject }}</td>
@@ -150,7 +151,8 @@
                                         </thead>
                                         <tbody>
                                         {% for task in date.tasks %}
-                                            <tr>
+                                            <tr class="{% if task.timeStart is not empty and task.timeStart < "now"|date() and task.status == 1 %}danger
+                                                    {% elseif task.date|date('d-m-Y') < "now"|date('d-m-Y') %}danger {% endif %}">
                                                 <td class="col-md-2">{{ task.title }}</td>
                                                 <td class="col-md-5">{{ task.description }}</td>
                                                 <td class="col-md-2">{{ task.subject }}</td>

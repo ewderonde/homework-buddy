@@ -67,11 +67,11 @@
                     <div class="sidebar content-box" style="display: block;">
                         <ul class="nav">
                             <!-- Main menu -->
-                            <li class="current"><a href="{{ path('dashboard') }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                            <li><a href="{{ path('agenda_index') }}"><i class="glyphicon glyphicon-calendar"></i> Agenda</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-book"></i> Vakken</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
+                            <li class="{% if current_path == 'dashboard' %}current{% endif %}"><a href="{{ path('dashboard') }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                            <li class="{% if current_path == 'agenda' %}current{% endif %}"><a href="{{ path('agenda_index') }}"><i class="glyphicon glyphicon-calendar"></i> Agenda</a></li>
+                            <li class="{% if current_path == 'grades' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
+                            <li class="{% if current_path == 'subjects' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-book"></i> Vakken</a></li>
+                            <li class="{% if current_path == 'manage' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
                         </ul>
                     </div>
                 </div>
