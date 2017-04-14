@@ -1,0 +1,18 @@
+create_task:
+    path: /ajax/create/
+    defaults:
+        _controller: app.controller.popup:taskAction
+
+edit_task:
+    path: /ajax/{id}/edit
+    defaults:
+        _controller: app.controller.popup:taskAction
+    requirements:
+        id: \d+
+
+delete_task:
+    path: /ajax/{id}/delete
+    defaults:
+        _controller: app.controller.popup:deleteTaskAction
+    requirements:
+        id: \d+

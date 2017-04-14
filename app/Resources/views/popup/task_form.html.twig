@@ -1,0 +1,22 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'popup-form', 'data-action': url('create_task', {'date': '1-1-1'})}} ) }}
+<div class="row">
+    <div class="col-md-6 form-group">
+        {{ form_row(form.title, {'attr': {'class' : 'form-control' }}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.subject , {'attr': {'class' : 'form-control' }}) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.timeStart , {'attr': {'class' : 'form-control time-start' }}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.description, {'attr': {'class' : 'form-control' }} ) }}
+    </div>
+    {{ form_widget(form.date_raw, {'attr': {'class' : 'hidden date' }}) }}
+</div>
+
+{{ form_end(form) }}

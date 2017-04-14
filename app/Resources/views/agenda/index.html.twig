@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="content-wrapper">
+    <!-- Agenda widget -->
+    <div class="row" style="margin-bottom:15px;">
         <div class="">
             <div title="agenda-menu">
                 <div class="col-lg-6">
@@ -10,34 +11,140 @@
                             <a href="{{ path('agenda_index', {'view':'1'}) }}" class="btn btn-secondary {% if view == '1' %}active{% endif %}" style="cursor:pointer;">Dag</a>
                             <a href="{{ path('agenda_index', {'view':'2'}) }}" class="btn btn-secondary {% if view == '2' %}active{% endif %}" style="cursor:pointer;">Week</a>
                             <a href="{{ path('agenda_index', {'view':'3'}) }}" class="btn btn-secondary {% if view == '3' %}active{% endif %}" style="cursor:pointer;">Maand</a>
+                            <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-left:15px">
+
+                                <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;">
+                                    {% if view == '1' %}
+                                        {{ day }}
+                                    {% elseif view == '2' %}
+                                        Week {{ week }}
+                                    {% else %}
+                                        {{ month_name }}
+                                    {% endif %}
+                                </a>
+                                <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;"><i class="fa fa-calendar" aria-hidden="true"></i></a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-
-                            <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;">
-                                {% if view == '1' %}
-                                    {{ day }}
-                                {% elseif view == '2' %}
-                                    Week {{ week }}
-                                {% else %}
-                                    {{ month_name }}
-                                {% endif %}
-                            </a>
-                            <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;"><i class="fa fa-calendar" aria-hidden="true"></i></a>
-
-                        </div>
-                    </div>
+                <div class="col-lg-6 col-lg-offset-4" style="margin-left:20px">
                     <div class="datepicker hidden"></div>
                 </div>
-
+                <div class="month-row-template hidden col-lg-12">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group col-lg-12" role="group" aria-label="First group">
+                            <a href="{{ path('agenda_index', {'month':'0'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '0' %}active{% endif %}" style="cursor:pointer; ">Januari</a>
+                            <a href="{{ path('agenda_index', {'month':'1'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '1' %}active{% endif %}" style="cursor:pointer;">Februari</a>
+                            <a href="{{ path('agenda_index', {'month':'2'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '2' %}active{% endif %}" style="cursor:pointer;">Maart</a>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group col-lg-12" role="group" aria-label="First group">
+                            <a href="{{ path('agenda_index', {'month':'3'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '3' %}active{% endif %}" style="cursor:pointer;">April</a>
+                            <a href="{{ path('agenda_index', {'month':'4'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '4' %}active{% endif %}" style="cursor:pointer;">Mei</a>
+                            <a href="{{ path('agenda_index', {'month':'5'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '5' %}active{% endif %}" style="cursor:pointer;">Juni</a>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group col-lg-12" role="group" aria-label="First group">
+                            <a href="{{ path('agenda_index', {'month':'6'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '6' %}active{% endif %}" style="cursor:pointer;">Juli</a>
+                            <a href="{{ path('agenda_index', {'month':'7'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '7' %}active{% endif %}" style="cursor:pointer;">Augustus</a>
+                            <a href="{{ path('agenda_index', {'month':'8'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '8' %}active{% endif %}" style="cursor:pointer;">September</a>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group col-lg-12" role="group" aria-label="First group">
+                            <a href="{{ path('agenda_index', {'month':'9'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '9' %}active{% endif %}" style="cursor:pointer;">Oktober</a>
+                            <a href="{{ path('agenda_index', {'month':'10'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '10' %}active{% endif %}" style="cursor:pointer;">November</a>
+                            <a href="{{ path('agenda_index', {'month':'11'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '11' %}active{% endif %}" style="cursor:pointer;">December</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
         <div class="d-flex justify-content-center">
 
+        </div>
+
+    </div>
+
+    <!-- Tables -->
+    <div class="row">
+        <div class="col-md-12">
+            {% if view == '1' %}
+                <div class="content-box-large">
+                    <div class="panel-heading">
+                        <div class="panel-title no-padding" >{% if day == "now"|date('d-n-Y')%}Vandaag - {{ day }} {% else %}{{ day }}{% endif %}</div>
+
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-date="{{ day }}" data-action="{{ path('create_task') }}">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        {% if tasks|length > 0 %}
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Taak</th>
+                                        <th>Beschrijving</th>
+                                        <th>Vak</th>
+                                        <th>Tijd</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for task in tasks %}
+                                        <tr>
+                                            <td class="col-md-2">{{ task.title }}</td>
+                                            <td class="col-md-5">{{ task.description }}</td>
+                                            <td class="col-md-2">{{ task.subject }}</td>
+                                            <td class="col-md-2">{{ task.timeStart|date('H:i') }}</td>
+                                            <td class="col-md-1">
+                                                {% if task.status == 1 %}
+                                                    <i class="glyphicon glyphicon-ok" style="cursor: pointer;"></i>
+                                                {% else %}
+                                                        <i class="glyphicon glyphicon-remove" style="cursor: pointer;"></i>
+                                                {% endif %}
+                                                <i class="glyphicon glyphicon-pencil edit-button" data-popup-open="popup-1" style="cursor: pointer;" data-date="{{ day }}" data-action="{{ path('edit_task', {'id' : task.id}) }}"></i>
+                                                <i class="glyphicon glyphicon-trash delete-button" data-popup-open="popup-1" style="cursor: pointer;" data-date="{{ day }}" data-action="{{ path('delete_task', {'id' : task.id}) }}"></i>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p>Er zijn geen taken voor deze dag.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="popup-template" class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+                <div class="header-content hidden">
+                    <h2 class="popup-title"></h2>
+                    <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                    <hr>
+                </div>
+                <div class="form-content">
+                    <p>Gegevens ophalen...</p>
+                </div>
+                <div class="submit-task hidden">
+                    <p class="pull-right" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                    <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
+                </div>
+                <div class="confirm-delete hidden">
+                    <p class="pull-left" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                    <button type="button" class="btn btn-danger submit-button" href="#">Verwijderen</button></p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -52,7 +159,11 @@
         console.log('week');
             Agenda.week('{{ week }}', '{{ year }}');
         {% else %}
-            Agenda.month();
+            Agenda.month('{{ month_number }}', '{{ year }}');
         {% endif %}
+
+        Popup.create();
+        Popup.edit();
+        Popup.delete();
     </script>
 {% endblock %}

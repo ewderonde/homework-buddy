@@ -5,63 +5,55 @@
         <title>{% block title %}Homework Buddy{% endblock %}</title>
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-            <link href="{{ asset('bundles/css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('bundles/css/bootstrap-4/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
             {#<link href="{{ asset('bundles/css/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet">#}
             <link href="{{ asset('bundles/css/datepicker-custom.css') }}" rel="stylesheet">
             <link href="{{ asset('bundles/css/main.css') }}" rel="stylesheet">
 
             <link href="{{ asset('bundles/css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
 
+            <link href="{{ asset('bundles/css/styles.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/css/popup.css') }}" rel="stylesheet">
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="container">
-            <div class="row" style="margin-top:-8px;">
-                <div id="wrapper">
-                    <!-- Sidebar -->
-                    <div id="sidebar-wrapper">
-
-                        <ul class="sidebar-nav" style="margin-left:0;">
-                            <li class="sidebar-brand">
-                                <a href="#menu-toggle"  id="menu-toggle" style="margin-top:20px;float:right;" > <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true" aria-hidden="true"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ path('dashboard') }}"> <i class="fa fa-tachometer " aria-hidden="true"> </i> <span style="margin-left:10px;">Dashboard</span> </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('agenda_index') }}"> <i class="fa fa-calendar-check-o" aria-hidden="true"> </i> <span style="margin-left:10px;">Agenda</span> </a>
-                            </li>
-
-                            <li>
-                                <a href="#"> <i class="fa fa-book" aria-hidden="true"> </i> <span style="margin-left:10px;">Vakken</span> </a>
-                            </li>
-                            <li>
-                                <a href="#"> <i class="fa fa-bar-chart" aria-hidden="true"> </i> <span style="margin-left:10px;">Cijfers</span> </a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-cog" aria-hidden="true"> </i> <span style="margin-left:10px;">Beheren</span> </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"> </i> <span style="margin-left:10px;">Uitloggen</span> </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /#sidebar-wrapper -->
-
-                    <!-- Page Content -->
-                    <div id="page-content-wrapper">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-12 pull-left">
-                                    <!-- Content block -->
-                                    <div class="content-header row left">
-                                        <h2>{{ title }}</h2>
-
-                                    </div>
-                                    {% block body %}{% endblock %}
-                                </div>
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <h1><a href="#">{{ title }}</a></h1>
+                            </div>
+                        </div>
+                        {#<div class="col-md-5">#}
+                            {#<div class="row">#}
+                                {#<div class="col-lg-12">#}
+                                    {#<div class="input-group form">#}
+                                        {#<input type="text" class="form-control" placeholder="Search...">#}
+                                        {#<span class="input-group-btn">#}
+                                 {#<button class="btn btn-primary" type="button">Search</button>#}
+                               {#</span>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                        <div class="col-md-2">
+                            <div class="navbar navbar-inverse" role="banner">
+                                <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                                            <ul class="dropdown-menu animated fadeInUp">
+                                                <li><a href="profile.html">Profile</a></li>
+                                                <li><a href="login.html">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -69,240 +61,52 @@
             </div>
         </div>
 
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="sidebar content-box" style="display: block;">
+                        <ul class="nav">
+                            <!-- Main menu -->
+                            <li class="current"><a href="{{ path('dashboard') }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                            <li><a href="{{ path('agenda_index') }}"><i class="glyphicon glyphicon-calendar"></i> Agenda</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-book"></i> Vakken</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-        {% block basicstyles %}
-            <style>
-                hr.title-separator {
-                    display: block;
-                    height: 1px;
-                    border: 0;
-                    border-top: 1px solid #cccccc;
-                    margin: 1em 0;
-                    padding-left:10px;
-                }
-                hr {
-                    -moz-border-bottom-colors: none;
-                    -moz-border-image: none;
-                    -moz-border-left-colors: none;
-                    -moz-border-right-colors: none;
-                    -moz-border-top-colors: none;
-                    border-color: #EEEEEE -moz-use-text-color #FFFFFF;
-                    border-style: solid none;
-                    border-width: 1px 0;
-                    margin: 18px 0;
-                }
-            </style>
+                <!-- Page content -->
+                <div class="col-md-10">
+                    <div class="row">
+                        {% block body %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <footer>
+            <div class="container">
 
-            <style>
-                body {
-                    overflow-x: hidden;
-                    font-family: 'Open Sans', sans-serif;
-                }
+                <div class="copy text-center">
+                    Copyright 2014 <a href='#'>Website</a>
+                </div>
 
-                /* Toggle Styles */
-
-                #wrapper {
-                    padding-left: 0;
-                    -webkit-transition: all 0.4s linear;
-                    -moz-transition: all 0.4s linear;
-                    -o-transition: all 0.4s linear;
-                    transition: all 0.4s linear;
-
-                }
-
-                #wrapper.toggled {
-                    padding-left: 200px;
-                }
-
-                #sidebar-wrapper {
-                    z-index: 1000;
-                    position: fixed;
-                    left: 250px;
-
-                    width: 0;
-                    height: 100%;
-                    margin-left: -250px;
-                    overflow-y: auto;
-                    background-color:#312A25 !Important;
-
-                    -webkit-transition: all 0.4s linear;
-                    -moz-transition: all 0.4s linear;
-                    -o-transition: all 0.4s linear;
-                    transition: all 0.4s linear;
-                }
-
-                #wrapper.toggled #sidebar-wrapper {
-                    width: 0;
-                }
-
-                #page-content-wrapper {
-                    width: 100%;
-                    position: absolute;
-
-                }
-
-                #wrapper.toggled #page-content-wrapper {
-                    position: absolute;
-                    margin-left:30px;
-                }
-
-                /* Sidebar Styles */
-
-                .sidebar-nav {
-                    position: absolute;
-                    top: 0;
-                    right:10px;
-                    width: 220px;
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-                }
-
-                .sidebar-nav li {
-                    text-indent: 20px;
-                    line-height: 40px;
-                }
-
-                .sidebar-nav li a {
-                    display: block;
-                    text-decoration: none;
-                    color: #999999;
-                }
-
-                .sidebar-nav li a:hover {
-                    text-decoration: none;
-                    color: #fff;
-                    background: #312A25;
-                }
-
-                .sidebar-nav li a:active,
-                .sidebar-nav li a:focus {
-                    text-decoration: none;
-                }
-
-                .sidebar-nav > .sidebar-brand {
-                    height: 65px;
-                    font-size: 18px;
-                    line-height: 60px;
-                }
-
-                .sidebar-nav > .sidebar-brand a {
-                    color: #999999;
-                }
-
-                .sidebar-nav > .sidebar-brand a:hover {
-                    color: #fff;
-                    background: none;
-                }
-
-                @media(min-width:768px) {
-                    #wrapper {
-                        padding-left: 220px;
-                    }
-
-                    #wrapper.toggled {
-                        padding-left: 0;
-                    }
-
-                    #sidebar-wrapper {
-                        width: 220px;
-                    }
-
-                    #wrapper.toggled #sidebar-wrapper {
-                        width: 35px;
+            </div>
+        </footer>
 
 
-                    }
 
-                    #wrapper.toggled span {
-                        visibility:hidden;
-
-                    }
-                    #wrapper.toggled   i {
-                        float:right;
-                    }
-
-                    #page-content-wrapper {
-                        padding: 20px;
-
-                    }
-
-                    #wrapper.toggled #page-content-wrapper {
-                        position: relative;
-                        margin-right: 0;
-                    }
-                }
-
-
-                @media(max-width:414px) {
-
-                    #wrapper.toggled #page-content-wrapper {
-                        position: absolute;
-                        margin-right:60px;
-                    }
-
-                    #wrapper.toggled {
-                        padding-right: 60px;
-                    }
-
-                    #wrapper {
-                        padding-left: 20px;
-                    }
-
-                    #wrapper.toggled {
-                        padding-left: 0;
-                    }
-
-                    #sidebar-wrapper {
-                        width: 50px;
-                    }
-
-                    #wrapper.toggled #sidebar-wrapper {
-                        width: 140px;
-
-
-                    }
-
-                    #wrapper.toggled span {
-                        visibility:visible;
-                        position:relative;
-                        left:70px;
-                        bottom:13px;
-
-                    }
-
-                    #wrapper span {
-                        visibility:hidden;
-
-                    }
-                    #wrapper.toggled   i {
-                        float:right;
-                    }
-
-                    #wrapper   i {
-                        float:right;
-                    }
-
-                    #page-content-wrapper {
-                        padding: 5px;
-                        position: relative;
-                    }
-
-                    #wrapper.toggled #page-content-wrapper {
-                        position: relative;
-                        margin-right: 0;
-                    }
-                }
-
-            </style>
-        {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('bundles/js/jquery.min.js') }}"></script>
             <script src="{{ asset('bundles/css/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('bundles/js/tether.min.js') }}"></script>
             <script src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
             <script src="{{ asset('bundles/js/agenda.js') }}"></script>
+            <script src="{{ asset('bundles/js/custom.js') }}"></script>
+            <script src="{{ asset('bundles/js/popup.js') }}"></script>
+            <script src="{{ asset('bundles/js/timepicker.js') }}"></script>
             {#<script src="{{ asset('bundles/js/bootstrap-datepicker.min.js') }}"></script>#}
 
             <script>

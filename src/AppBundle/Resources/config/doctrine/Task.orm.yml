@@ -1,7 +1,7 @@
 AppBundle\Entity\Task:
     type: entity
     table: task
-    # repositoryClass: AppBundle\Repository\UserRepository
+    repositoryClass: AppBundle\Repository\TaskRepository
     id:
         id:
             type: integer
@@ -43,11 +43,11 @@ AppBundle\Entity\Task:
                 name: user_id
                 referencedColumnName: id
                 onDelete: CASCADE
-        schedule:
-            targetEntity: AppBundle\Entity\Schedule
+        profile:
+            targetEntity: AppBundle\Entity\profile
             inversedBy: tasks
             joinColumn:
-                name: schedule_id
+                name: profile_id
                 referencedColumnName: id
                 onDelete: CASCADE
         subject:

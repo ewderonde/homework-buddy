@@ -1,0 +1,17 @@
+profiile_index:
+    path: /
+    defaults:
+        _controller: app.controller.profile:indexAction
+
+profile_set_active:
+    path: /{id}/active
+    defaults:
+        _controller: app.controller.profile:activeProfileAction
+    requirements:
+        id: \d+
+
+profile_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: app.controller.profile:deleteProfileAction
+

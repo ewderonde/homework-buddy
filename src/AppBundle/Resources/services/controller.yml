@@ -35,5 +35,13 @@ services:
       parent: app.controller.base
 
   app.controller.agenda:
-        class: AppBundle\Controller\AgendaController
-        parent: app.controller.base
+      class: AppBundle\Controller\AgendaController
+      parent: app.controller.base
+
+  app.controller.popup:
+      class: AppBundle\Controller\PopupController
+      parent: app.controller.base
+
+  app.controller.profile:
+       class: AppBundle\Controller\ProfileController
+       parent: app.controller.base

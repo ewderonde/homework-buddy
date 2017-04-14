@@ -49,6 +49,11 @@ class Subject
         $this->tasks = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     /**
      * @return int
      */

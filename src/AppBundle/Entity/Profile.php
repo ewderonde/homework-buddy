@@ -29,9 +29,9 @@ class Profile
     private $profileHasUsers;
 
     /**
-     * @var Schedule[]
+     * @var Task[]
      */
-    private $schedules;
+    private $tasks;
 
     /**
      * @var Subject[]
@@ -42,7 +42,7 @@ class Profile
     {
         $this->subjects = new ArrayCollection();
         $this->profileHasUsers = new ArrayCollection();
-        $this->schedules = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
     }
 
     /**
@@ -70,27 +70,27 @@ class Profile
     }
 
     /**
-     * @return Schedule[]
+     * @return Task[]
      */
-    public function getSchedules()
+    public function getTasks()
     {
-        return $this->schedules;
+        return $this->tasks;
     }
 
     /**
-     * @param Schedule[] $schedules
+     * @param Task[] $tasks
      */
-    public function setSchedules($schedules)
+    public function setTasks($tasks)
     {
-        $this->schedules = $schedules;
+        $this->tasks = $tasks;
     }
 
     /**
-     * @param Schedule $schedule
+     * @param Task $task
      */
-    public function addSchedule(Schedule $schedule)
+    public function addTask(Schedule $task)
     {
-        $this->schedules[] = $schedule;
+        $this->tasks[] = $task;
     }
 
     /**

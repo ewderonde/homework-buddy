@@ -7,3 +7,10 @@ services:
             - '@translator'
         tags:
             - { name: form.type }
+
+    app.form.task:
+        class: AppBundle\Form\TaskType
+        arguments:
+            - '@translator'
+        tags:
+            - { name: form.type }

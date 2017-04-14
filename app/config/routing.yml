@@ -13,3 +13,11 @@ schedule:
 agenda:
     prefix: /agenda
     resource: '@AppBundle/Resources/routing/agenda.yml'
+
+task:
+    prefix: /task
+    resource: '@AppBundle/Resources/routing/task.yml'
+
+profile:
+    prefix: /profile
+    resource: '@AppBundle/Resources/routing/profile.yml'

@@ -50,14 +50,16 @@ class FilterService
         if($view !== null) {
             $this->session->set('view', $view);
         }elseif ($this->session->get('view') == null) {
-            $this->session->set('view', 'day');
+            $this->session->set('view', '1');
         }
 
         // Set day filter
         if($day !== null) {
             $this->session->set('day', $day);
         }elseif ($this->session->get('day') == null) {
-            $this->session->set('day', 'day');
+            $date = new \DateTime();
+            $day = $date->format('d-m-Y');
+            $this->session->set('day', $day);
         }
 
         // Set week filter
@@ -75,14 +77,20 @@ class FilterService
 
         // Set month filter WORK IN PROGRESS
         if($month !== null) {
-            setlocale(LC_TIME, 'NL_nl');
-            $monthName = strftime("%B");
+//            setlocale(LC_TIME, 'NL_nl');
+//            // $monthName = strftime("%B");
+//
+//            $date = new \DateTime('1-'.$month.'-2017');
+//
+//            setlocale(LC_TIME, 'fr_FR');
+//            $month_name = date('F', mktime(0, 0, 0, 2));
+//
+//            $monthNumber = $date->format('m');
+//            $monthName = $date->format('F');
+            $monthNames = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'July', 'Augustus', 'September', 'Oktober', 'November', 'December'];
 
-            $date = new \DateTime();
-            $monthNumber = $date->format('m');
-
-            $this->session->set('month_number', $monthNumber);
-            $this->session->set('month_name', $monthName);
+            $this->session->set('month_number', $month);
+            $this->session->set('month_name', $monthNames[$month]);
         }elseif ($this->session->get('month') == null){
             setlocale(LC_TIME, 'NL_nl');
             $monthName = strftime("%B");

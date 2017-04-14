@@ -50,9 +50,9 @@ class Task
     private $status;
 
     /**
-     * @var Schedule
+     * @var profile
      */
-    private $schedule;
+    private $profile;
 
     /**
      * @var Subject
@@ -67,6 +67,11 @@ class Task
     public function __construct()
     {
         $this->status = Task::NOT_DONE;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     /**
@@ -174,19 +179,19 @@ class Task
     }
 
     /**
-     * @return Schedule
+     * @return Profile
      */
-    public function getSchedule()
+    public function getProfile()
     {
-        return $this->schedule;
+        return $this->profile;
     }
 
     /**
-     * @param Schedule $schedule
+     * @param Profile $profile
      */
-    public function setSchedule($schedule)
+    public function setProfile($profile)
     {
-        $this->schedule = $schedule;
+        $this->profile = $profile;
     }
 
     /**

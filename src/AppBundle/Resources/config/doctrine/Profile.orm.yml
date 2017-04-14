@@ -20,8 +20,8 @@ AppBundle\Entity\Profile:
         profileHasUsers:
             targetEntity: AppBundle\Entity\UserHasProfile
             mappedBy: profile
-        schedules:
-            targetEntity: AppBundle\Entity\Schedule
+        tasks:
+            targetEntity: AppBundle\Entity\Task
             mappedBy: profile
         subjects:
             targetEntity: AppBundle\Entity\Subject

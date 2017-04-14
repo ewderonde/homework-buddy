@@ -25,8 +25,14 @@ class UserHasProfile
      */
     private $user;
 
+    /**
+     * @var boolean
+     */
+    private $active;
+
     public function __construct()
     {
+        $this->active = 0;
     }
 
     /**
@@ -67,6 +73,22 @@ class UserHasProfile
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
 

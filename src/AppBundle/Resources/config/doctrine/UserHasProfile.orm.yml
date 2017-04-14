@@ -8,6 +8,10 @@ AppBundle\Entity\UserHasProfile:
             id: true
             generator:
                 strategy: AUTO
+    fields:
+        active:
+            column: active
+            type: boolean
     manyToOne:
         user:
             targetEntity: AppBundle\Entity\User
