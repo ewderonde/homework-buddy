@@ -16,3 +16,8 @@ delete_task:
         _controller: app.controller.popup:deleteTaskAction
     requirements:
         id: \d+
+
+change_task_status:
+    path: /{id}/status
+    defaults:
+        _controller: app.controller.agenda:changeTaskSatusAction

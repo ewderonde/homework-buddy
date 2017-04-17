@@ -10,7 +10,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use Doctrine\Common\Util\Debug;
+use Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Intl\Tests\Data\Provider\Json\JsonRegionDataProviderTest;
 
 class AgendaController extends BaseController
 {
@@ -68,5 +72,16 @@ class AgendaController extends BaseController
         }
 
         return $tasksGroupedByDay;
+    }
+
+    public function changeTaskSatusAction (Task $task) {
+        $currentStatus = $task->isStatus();
+        $newStatus = ($currentStatus == 1)? 0 : 1;
+
+        $task->setStatus($newStatus);
+        $this->em->flush();
+
+        return new RedirectResponse($this->router->generate('agenda_index'));
+
     }
 }

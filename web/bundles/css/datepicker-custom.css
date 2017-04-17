@@ -12,6 +12,7 @@
 .ui-datepicker {
     display: none;
     width: 340px;
+    /*height: 170px;*/
     padding: 35px;
     cursor: default;
 

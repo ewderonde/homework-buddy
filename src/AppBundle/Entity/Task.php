@@ -11,8 +11,8 @@ namespace AppBundle\Entity;
 
 class Task
 {
-    CONST NOT_DONE = 1;
-    CONST DONE = 2;
+    CONST NOT_DONE = 0;
+    CONST DONE = 1;
     CONST UNACCOMPLISHED = 3;
     /**
      * @var integer

@@ -91,7 +91,7 @@ class FilterService
 
             $this->session->set('month_number', $month);
             $this->session->set('month_name', $monthNames[$month]);
-        }elseif ($this->session->get('month') == null){
+        }elseif ($this->session->get('month_number') == null){
             setlocale(LC_TIME, 'NL_nl');
             $monthName = strftime("%B");
 
