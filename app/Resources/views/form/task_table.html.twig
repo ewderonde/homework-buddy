@@ -13,21 +13,19 @@
     {% for task in data %}
         <tr class="{% if not task.timeStart is empty and task.timeStart|date('H:i') < "now"|date('H:i') and task.status == 0  %}danger
                                                     {% elseif task.date|date('d-m-Y') < "now"|date('d-m-Y') and task.status == 0%}danger {% endif %}">
-            <div >
-                <td class="">
-                    {% if task.status == 1 %}
-                        <a style="text-decoration: none" href="{{ path('change_task_status', {'id': task.id }) }}"><i class="glyphicon glyphicon-check" style="cursor: pointer;"></i></a>
-                    {% else %}
-                        <a style="text-decoration: none" href="{{ path('change_task_status', {'id': task.id }) }}"><i class="glyphicon glyphicon-unchecked" style="cursor: pointer;"></i></a>
-                    {% endif %}</td>
-                <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.title }}</td>
-                <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-5">{{ task.description }}</td>
-                <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.subject }}</td>
-                <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.timeStart|date('H:i') }}</td>
-            </div>
+            <td class="">
+                {% if task.status == 1 %}
+                    <a style="text-decoration: none" href="{{ path('change_task_status', {'id': task.id }) }}"><i class="glyphicon glyphicon-check" style="cursor: pointer;"></i></a>
+                {% else %}
+                    <a style="text-decoration: none" href="{{ path('change_task_status', {'id': task.id }) }}"><i class="glyphicon glyphicon-unchecked" style="cursor: pointer;"></i></a>
+                {% endif %}</td>
+            <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.title }}</td>
+            <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-5">{{ task.description }}</td>
+            <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.subject }}</td>
+            <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.timeStart|date('H:i') }}</td>
             <td class="col-md-1" >
                 <i class="glyphicon glyphicon-pencil edit-button" data-popup-open="popup-1" style="cursor: pointer;" data-date="{{ task.date|date('d-m-Y') }}" data-action="{{ path('edit_task', {'id' : task.id}) }}"></i>
-                <i class="glyphicon glyphicon-trash delete-button" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('delete_task', {'id' : task.id}) }}"></i>
+                <i class="glyphicon glyphicon-trash delete-button" data-popup-description="Weet je zeker dat je deze taak wilt verwijderen?" data-popup-title="Taak verwijderen" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('delete_task', {'id' : task.id}) }}"></i>
             </td>
         </tr>
     {% endfor %}

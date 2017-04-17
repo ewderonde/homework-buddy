@@ -12,6 +12,14 @@ AppBundle\Entity\UserHasProfile:
         active:
             column: active
             type: boolean
+        dateCreated:
+            column: date_created
+            type: datetime
+            nullable: true
+        profileInvite:
+            column: profile_invite
+            type: string
+            nullable: true
     manyToOne:
         user:
             targetEntity: AppBundle\Entity\User
@@ -20,6 +28,7 @@ AppBundle\Entity\UserHasProfile:
                 name: user_id
                 referencedColumnName: id
                 onDelete: CASCADE
+                cascade: ["persist"]
         profile:
             targetEntity: AppBundle\Entity\Profile
             inversedBy: profileHasUsers
@@ -27,5 +36,6 @@ AppBundle\Entity\UserHasProfile:
                 name: profile_id
                 referencedColumnName: id
                 onDelete: CASCADE
+                cascade: ["persist"]
 
     lifecycleCallbacks: {  }

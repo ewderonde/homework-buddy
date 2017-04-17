@@ -10,7 +10,10 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Controller\BaseController;
+use AppBundle\Entity\Profile;
 use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
+use AppBundle\Entity\UserHasProfile;
 use AppBundle\Form\TaskType;
 use Doctrine\Common\Util\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -77,10 +80,6 @@ class PopupController extends BaseController
         );
     }
 
-    public function editTaskAction () {
-
-    }
-
     public function deleteTaskAction (Task $task = null) {
         if(empty($task)) {
             return new JsonResponse([
@@ -97,5 +96,53 @@ class PopupController extends BaseController
             'response' => 'De taak is verwijdert!',
             'redirect' => $this->router->generate('agenda_index')
         ]);
+    }
+
+//    public function userHasProfileAction() {
+//        $userHasProfile = new UserHasProfile();
+//        $form = $this->formFactory->create(TaskType::class, $userHasProfile, []);
+//        $form->handleRequest($this->request);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//
+//            // Set manual date.
+//            if(!empty($form->get('date_raw')->getData())) {
+//                $date = new \DateTime($form->get('date_raw')->getData());
+//                $task->setDate($date);
+//
+//                // Set manual timestart date.
+//                if(!empty($form->get('timeStart')->getData())) {
+//                    $date = new \DateTime($form->get('date_raw')->getData(). ' ' .$form->get('timeStart')->getData());
+//                    $task->setTimeStart($date);
+//                }
+//            }
+//
+//            $this->em->persist($task);
+//            $this->em->flush();
+//
+//            return new JsonResponse([
+//                'status' => 'success',
+//                'response' => ($action == 'create') ? 'Taak is aangemaakt!' : 'Taak is aangepast!',
+//                'redirect' => $this->router->generate('agenda_index')
+//            ]);
+//
+//        } elseif ($form->isSubmitted() && !$form->isValid()) {
+//
+//            return new JsonResponse([
+//                'status' => 'error',
+//                'response' => 'Er is iets fout gegaan'
+//            ]);
+//
+//        }
+//
+//        return new Response(
+//            $this->templating->render('popup/task_form.html.twig', array(
+//                'form' => $form->createView(),
+//            ))
+//        );
+//    }
+
+    public function deleteUserHasProfileAction() {
+
     }
 }

@@ -1,3 +1,7 @@
+default:
+    path: /
+    defaults: { _controller: app.controller.security:loginAction }
+
 logout:
     path: /logout
 

@@ -1,0 +1,6 @@
+services:
+
+    entity_listener:
+        class: AppBundle\EventListener\EntityListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

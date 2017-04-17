@@ -33,8 +33,7 @@ var Popup = (function(){
 
         var setData = function($button) {
             // Set title
-            $popup.find('.popup-title').html('Taak toevoegen');
-            console.log($button.data('action'));
+            $popup.find('.popup-title').html($button.data("popup-title"));
 
             // Retrieve form
             $.ajax({
@@ -143,10 +142,10 @@ var Popup = (function(){
 
         var setData = function($button) {
             // Set title
-            $popup.find('.popup-title').html('Taak verwijderen');
+            $popup.find('.popup-title').html($button.data('popup-title'));
 
             $popup.find('.form-content').html(
-                '<p>Weet je zeker dat je de taak wilt verwijderen?</p>'
+                $button.data("popup-description")
             );
 
 
@@ -162,7 +161,6 @@ var Popup = (function(){
         };
 
         var submitForm = function (url) {
-            console.log('submitting');
             // Submit data.
             $.ajax({
                 type: "GET",
@@ -171,6 +169,38 @@ var Popup = (function(){
                 if(data.hasOwnProperty('redirect')) {
                     window.location = data.redirect;
                 }
+            })
+        }
+    };
+
+    var _profileInvite = function () {
+        $form = $('#profile-invite-form').clone();
+        // Set click events();
+
+
+        $('.invite-button').on('click', function(){
+            setData($(this));
+        });
+
+
+        var setData = function ($button) {
+
+            // Add submit event
+            $('#profile-invite').find('.submit-button').click(function() {
+                submitForm($button.data('action')+ '?emailaddress='+ $('#emailaddress').val());
+            })
+        };
+
+
+        var submitForm = function (url) {
+            console.log(url);
+
+            // Submit data.
+            $.ajax({
+                type: "GET",
+                url: url
+            }).done(function (data) {
+                console.log(data);
             })
         }
     };
@@ -187,6 +217,9 @@ var Popup = (function(){
         edit: function(m, y) {
             _init();
             _edit();
+        },
+        profileInvite: function(){
+            _profileInvite();
         }
     };
 })();

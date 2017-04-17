@@ -30,9 +30,20 @@ class UserHasProfile
      */
     private $active;
 
+    /**
+     * @var \DateTime
+     */
+    private $dateCreated;
+
+    /**
+     * @var string
+     */
+    private $profileInvite;
+
     public function __construct()
     {
         $this->active = 0;
+        $this->setDateCreated(new \DateTime());
     }
 
     /**
@@ -89,6 +100,38 @@ class UserHasProfile
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param \DateTime $dateCreated
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileInvite()
+    {
+        return $this->profileInvite;
+    }
+
+    /**
+     * @param string $profileInvite
+     */
+    public function setProfileInvite($profileInvite)
+    {
+        $this->profileInvite = $profileInvite;
     }
 
 

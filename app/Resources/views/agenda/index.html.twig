@@ -79,7 +79,7 @@
                         <div class="panel-title no-padding" >{% if day == "now"|date('d-m-Y')%}<strong>Vandaag - {{ day }}</strong>{% else %}{{ day }}{% endif %}</div>
 
                         <div class="panel-options">
-                            <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-date="{{ day }}" data-action="{{ path('create_task') }}">
+                            <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-popup-title="Taak toevoegen"  data-date="{{ day }}" data-action="{{ path('create_task') }}">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </a>
                         </div>
@@ -102,7 +102,7 @@
                                 <div class="panel-title no-padding" >{% if date.date  == "now"|date('d-m-Y')%}<strong>Vandaag - {{ date.date }}</strong> {% else %}{{ date.date }}{% endif %}</div>
 
                                 <div class="panel-options">
-                                    <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-date="{{ date.date }}" data-action="{{ path('create_task') }}">
+                                    <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-popup-title="Taak toevoegen" data-date="{{ date.date }}" data-action="{{ path('create_task') }}">
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </a>
                                 </div>

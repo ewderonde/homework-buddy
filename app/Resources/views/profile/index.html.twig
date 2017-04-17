@@ -2,6 +2,105 @@
 
 {% block body %}
     <div class="row">
-        <p>Agenda overzicht</p>
+        <div class="col-md-12">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title no-padding" >Gebruikers met toegang tot dit profiel</div>
+
+                    <div class="panel-options">
+                        <a href="#" data-rel="collapse" data-popup-open="popup-2" class="invite-button" data-popup-title="Gebruiker toevoegen" data-action="{{ path('add_user_has_profile') }}">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% if users|length > 0 %}
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Email-adres</th>
+                                <th>Toegang sinds</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td class="">{{ user.fullName }}</td>
+                                    <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ user.email }}</td>
+                                    <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-5">{{ user.dateCreated|date('d-m-y H:i') }}</td>
+                                    <td class="col-md-1" >
+                                        <i class="glyphicon glyphicon-trash delete-button" data-popup-open="popup-1" style="cursor: pointer;" data-popup-description="Weet je zeker dat je de toegang wilt ontzeggen voor deze gebruiker?" data-popup-title="Toegang ontzeggen" data-action="{{ path('delete_user_has_profile', {'id' : task.id}) }}"></i>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Er zijn geen gebruikers die toegang hebben tot dit profiel</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <!-- Popup include -->
+    <div class="row">
+        <div id="popup-template" class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+                <div class="header-content hidden">
+                    <h2 class="popup-title"></h2>
+                    <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                    <hr>
+                </div>
+                <div class="form-content">
+                    <p>Gegevens ophalen...</p>
+                </div>
+                <div class="submit-task hidden">
+                    <p class="pull-right" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                        <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
+                </div>
+                <div class="confirm-delete hidden">
+                    <p class="pull-left" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                        <button type="button" class="btn btn-danger submit-button" href="#">Verwijderen</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="profile-invite" class="popup" data-popup="popup-2">
+            <div class="popup-inner">
+                <div class="header-content">
+                    <h2 class="popup-title" style="margin-left:15px">Gebruiker uitnodigen</h2>
+                    <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
+                </div>
+                <div class="form-content">
+                    <form class="form-inline" role="form">
+                        <fieldset>
+                            <div class="form-group col-sm-10">
+                                <label class="sr-only" for="emailaddress">Emailadres</label>
+                                <input type="text" class="form-control" id="emailaddress" placeholder="Emailadres">
+                            </div>
+                            <button type="button" class="btn btn-success submit-button">
+                                Uitnodigen
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        Popup.profileInvite();
+        Popup.delete();
+    </script>
 {% endblock %}

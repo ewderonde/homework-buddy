@@ -71,7 +71,7 @@
                             <li class="{% if current_path == 'agenda' %}current{% endif %}"><a href="{{ path('agenda_index') }}"><i class="glyphicon glyphicon-calendar"></i> Agenda</a></li>
                             <li class="{% if current_path == 'grades' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
                             <li class="{% if current_path == 'subjects' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-book"></i> Vakken</a></li>
-                            <li class="{% if current_path == 'manage' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
+                            <li class="{% if current_path == 'manage' %}current{% endif %}"><a href="{{ path('profile_index') }}"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
             <div class="container">
 
                 <div class="copy text-center">
-                    Copyright 2014 <a href='#'>Website</a>
+                    Copyright 2017 <a href='{{ path('dashboard') }}'>Homework Buddy</a>
                 </div>
 
             </div>

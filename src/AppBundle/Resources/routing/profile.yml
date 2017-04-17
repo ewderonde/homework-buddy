@@ -1,4 +1,4 @@
-profiile_index:
+profile_index:
     path: /
     defaults:
         _controller: app.controller.profile:indexAction
@@ -15,3 +15,12 @@ profile_delete:
     defaults:
         _controller: app.controller.profile:deleteProfileAction
 
+add_user_has_profile:
+    path: /ajax/add-user
+    defaults:
+        _controller: app.controller.profile:profileInviteAction
+
+delete_user_has_profile:
+    path: /ajax/{id}/delete-user-profile
+    defaults:
+        _controller: app.controller.popup:deleteUserHasProfileAction

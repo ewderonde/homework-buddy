@@ -9,9 +9,11 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Profile;
 use AppBundle\Entity\User;
 use AppBundle\Service\AgendaService;
 use AppBundle\Service\FilterService;
+use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -99,6 +101,11 @@ class BaseController extends Controller
     protected $user;
 
     /**
+     * @var Profile
+     */
+    protected $profile;
+
+    /**
      * @var FilterService
      */
     protected $filterService;
@@ -135,5 +142,21 @@ class BaseController extends Controller
 
         // Get authenticated user.
         $this->user = $tokenStorage->getToken()->getUser();
+
+        if($this->user != 'anon.') {
+            $this->profile = $this->getCurrentProfile($this->user);
+        }
+
+    }
+
+    public function getCurrentProfile (User $user) {
+        $userRepo = $this->em->getRepository('AppBundle:User');
+        $id = $userRepo->getActiveProfile($user)['id'];
+
+        $profileRepo = $this->em->getRepository('AppBundle:Profile');
+        $profile = $profileRepo->findOneBy(['id' => $id]);
+
+        // return profile
+        return $profile;
     }
 }
