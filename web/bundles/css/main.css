@@ -22,3 +22,12 @@
 .panel-title.no-padding {
     padding:0px !important;
 }
+
+.agenda-container {
+    margin-right:0px;
+}
+
+.agenda-data {
+    height: 660px;
+    overflow-y: scroll;
+}

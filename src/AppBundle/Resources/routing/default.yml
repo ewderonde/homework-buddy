@@ -15,6 +15,11 @@ register:
     defaults:
         _controller: app.controller.user:registerAction
 
+register_through_invite:
+    path: /register/invite/{hash}
+    defaults:
+        _controller: app.controller.user:registerThroughInviteAction
+
 register_success:
     path: /register-success
     defaults:

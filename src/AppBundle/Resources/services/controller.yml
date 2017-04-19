@@ -21,6 +21,7 @@ services:
         - '@security.authorization_checker'
         - '@app.service.agenda'
         - '@app.service.filter'
+        - '@mailer'
 
   app.controller.dashboard:
     class: AppBundle\Controller\DashboardController

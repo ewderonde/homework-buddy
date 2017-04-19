@@ -13,19 +13,21 @@ use AppBundle\Entity\Profile;
 
 class TaskRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findTasksForDay($date) {
+    public function findTasksForDay(Profile $profile, $date) {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
         $result = $qb->select('t')
             ->from('AppBundle:Task', 't')
             ->where('t.date = :date')
+            ->andWhere('t.profile = :profile')
+            ->setParameter('profile', $profile)
             ->setParameter('date', new \DateTime($date))
             ->orderBy('t.timeStart', 'ASC');
 
         return $result->getQuery()->getResult();
     }
 
-    public function findTasksForInterval($start, $end) {
+    public function findTasksForInterval(Profile $profile, $start, $end) {
         $start = new \DateTime($start);
         $end = new \DateTime($end);
 
@@ -37,6 +39,8 @@ class TaskRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('start', $start)
             ->andWhere('t.date <= :end')
             ->setParameter('end', $end)
+            ->andWhere('t.profile = :profile')
+            ->setParameter('profile', $profile)
             ->orderBy('t.date', 'ASC')
             ->addOrderBy('t.timeStart', 'ASC');
 

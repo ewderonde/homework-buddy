@@ -96,7 +96,7 @@ class FilterService
             $monthName = strftime("%B");
 
             $date = new \DateTime();
-            $monthNumber = $date->format('m');
+            $monthNumber = $date->format('m') -1;
 
             $this->session->set('month_number', $monthNumber);
             $this->session->set('month_name', $monthName);

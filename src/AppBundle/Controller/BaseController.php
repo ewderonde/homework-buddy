@@ -106,6 +106,11 @@ class BaseController extends Controller
     protected $profile;
 
     /**
+     * @var \Swift_Mailer
+     */
+    protected $mailer;
+
+    /**
      * @var FilterService
      */
     protected $filterService;
@@ -123,7 +128,8 @@ class BaseController extends Controller
         TokenStorageInterface $tokenStorage,
         AuthorizationCheckerInterface $authorizationChecker,
         AgendaService $agendaService,
-        FilterService $filterService
+        FilterService $filterService,
+        \Swift_Mailer $swift_Mailer
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
@@ -139,6 +145,7 @@ class BaseController extends Controller
         $this->authenticationUtils = $authenticationUtils;
         $this->agendaService = $agendaService;
         $this->filterService = $filterService;
+        $this->mailer = $swift_Mailer;
 
         // Get authenticated user.
         $this->user = $tokenStorage->getToken()->getUser();

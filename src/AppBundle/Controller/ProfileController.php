@@ -9,10 +9,12 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Profile;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserHasProfile;
 use Doctrine\Common\Util\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
 
@@ -20,12 +22,28 @@ class ProfileController extends BaseController
 {
     public function indexAction() {
         $profileRepository = $this->em->getRepository('AppBundle:Profile');
+        $users = $profileRepository->getAllUsersWithPermission($this->profile, $this->user);
+        $currentProfile = $profileRepository->getCurrentUserHasProfile($this->user, $this->profile);
+        $profiles = $profileRepository->getAllUserProfiles($this->user);
 
-        return new Response($this->templating->render('profile/index.html.twig', ['title' => "Beheer", 'current_path' => 'manage', 'users' => []]));
+        return new Response($this->templating->render('profile/index.html.twig', ['title' => "Beheer", 'current_path' => 'manage', 'users' => $users, 'profiles' => $profiles, 'current_profile' => $currentProfile ]));
     }
 
     public function activeProfileAction (UserHasProfile $profile) {
+        $profileRepo = $this->em->getRepository('AppBundle:Profile');
+        $profiles = $profileRepo->getAllActiveProfiles($this->user, $profile->getId());
 
+
+        /** @var UserHasProfile $uhp */
+        foreach($profiles as $uhp) {
+            $uhp->setActive(0);
+        }
+
+        $profile->setActive(1);
+        $this->em->flush();
+//        Debug::dump($profiles);
+//        exit;
+        return new RedirectResponse($this->router->generate('profile_index'));
     }
 
 
@@ -54,140 +72,123 @@ class ProfileController extends BaseController
                     $this->em->flush();
 
                     $this->sendProfileInviteEmailToExistingUser($user);
-                } else {
+
                     $data = array(
                         'status' => 'success',
-                        'response' => $user->getFullName() . ' heeft al toegang tot dit profiel'
+                        'response' => '<strong>'.$user->getFullName() .'</strong> is uitgenodigd voor dit profiel'
+                    );
+
+                    return new JsonResponse($data);
+                } else {
+                    $data = array(
+                        'status' => 'warning',
+                        'response' => '<strong>'.$user->getFullName() .'</strong> heeft al toegang tot dit profiel'
                     );
 
                     return new JsonResponse($data);
                 }
+            } else {
+                // Create new user invite.
+                $userHasProfile = new UserHasProfile();
+                $userHasProfile->setUser(null);
+                $userHasProfile->setProfile($this->profile);
+                $userHasProfile->setProfileInvite($this->generateInviteHash($userHasProfile));
+
+                $this->em->persist($userHasProfile);
+                $this->em->flush();
+
+                $this->sendProfileInviteEmailToNewUser($userHasProfile, $email);
+
+                $data = array(
+                    'status' => 'success',
+                    'response' => '<strong>'.$email .'</strong> is uitgenodigd voor dit profiel'
+                );
+
+                return new JsonResponse($data);
             }
-            // $this->inviteUser($email, $user);
         }
 
         $data = array(
-            'status' => 'success',
-            'response' => $email . ' is uitgenodigd voor dit profiel'
+            'status' => 'warning',
+            'response' => 'Je hebt geen geldig emailadres ingevoerd.'
         );
 
         return new JsonResponse($data);
     }
 
-    public function inviteUser($email, $existingUser) {
-        /**
-         * $userRepo UserRepository
-         * $user User
-         */
-        $userRepo = $this->em->getRepository('AppBundle:User');
-        $user = $userRepo->findOneBy(array(
-            'email' => trim($email)
-        ));
-
-        if($user) {
-            $hash = $this->generateInviteHash($user);
-            $user->setResetPassword($hash);
-            $this->em->flush();
-
-            // send mail
-            // return $this->mailManager->sendResetPasswordMail($user, $hash);
-
-        }
-        return false;
-    }
-
     public function generateInviteHash($data)
     {
         $now = new \DateTime();
-
-        if ($data instanceof User) {
-            $user = $data;
-            $inviteData = array(
-                $user->getId(),
-                $user->getEmail(),
-                $user->getFullname(),
-                $now->getTimestamp(),
-                uniqid()
-            );
-
-        }
+        /** @var UserHasProfile $uhp */
+        $uhp = $data;
+        $inviteData = array(
+            $uhp->getProfile()->getTitle(),
+            $now->getTimestamp(),
+            uniqid()
+        );
 
         return sha1(implode('.', $inviteData));
     }
 
-    public function userInviteAction($hash)
-    {
-        $userRepo = $this->em->getRepository('AppBundle:User');
-        $user = $userRepo->findByResetPasswordHash($hash);
-        if(!$user) {
-            return new RedirectResponse($this->router->generate('login'));
-        }
-
-        $form = $this->formFactory->create(UserResetPasswordType::class, $user, array(
-            'showSubmitButton' => true,
-            'validation_groups' => array('reset')
-        ));
-
-        if($this->request->isMethod('POST')) {
-
-            $data = $this->request->get($form->getName());
-            $form->submit($data);
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                // reset field
-                $user->setResetPassword('');
-
-                // save to db
-                $this->em->flush();
-
-                // add message
-                $this->session->getFlashBag()->add('success', 'Je wachtwoord is succesvol gewijzigd, je kunt hieronder inloggen.');
-
-                // redirect to loginpage
-                return new RedirectResponse($this->router->generate('login'));
-
-            }
-
-        }
-
-        // show form
-        return new Response($this->templating->render('security/reset-password.html.twig', array(
-            'form' => $form->createView()
-        )));
-    }
-
-    public function sendProfileInviteEmailToExistingUser(User $user, $hash = null) {
-        $url = $this->router->generate('reset_password', array(
-            'hash' => $hash
-        ), Router::ABSOLUTE_URL);
+    public function sendProfileInviteEmailToExistingUser(User $user) {
+        $url = $this->router->generate('login', [], Router::ABSOLUTE_URL);
 
         $message = \Swift_Message::newInstance()
             ->setSubject( 'Uitnodiging Profiel')
-            ->setFrom('no-reply@homework-buddy.nl')
+            ->setFrom('info@homework-buddy.nl')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->templating->render(
-                    'email/reset_password.html.twig',
+                    'email/template.html.twig',
                     array(
                         'url' => $url,
-                        'name' => $user->getFirstName()
+                        'call_to_action_text' => 'Inloggen',
+                        'name' => $user->getFirstName(),
+                        'sender' => $this->user->getFullName(),
+                        'new_user' => false
                     )
                 ),
                 'text/html'
             );
 
-
-
-
         try {
-            $mailer = new \Swift_Mailer();
-            $mailer->send($message);
-            // $this->mailer->send($message);
+            $this->mailer->send($message);
         } catch (Exception $ex) {
+            Debug::dump($ex);
             return false;
         }
 
         return true;
     }
 
+    public function sendProfileInviteEmailToNewUser(UserHasProfile $uhp, $email) {
+        $url = $this->router->generate('register_through_invite', ['hash' => $uhp->getProfileInvite() ], Router::ABSOLUTE_URL);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject( 'Uitnodiging Profiel')
+            ->setFrom('info@homework-buddy.nl')
+            ->setTo($email)
+            ->setBody(
+                $this->templating->render(
+                    'email/template.html.twig',
+                    array(
+                        'url' => $url,
+                        'call_to_action_text' => 'Registreren',
+                        'name' => '',
+                        'sender' => $this->user->getFullName(),
+                        'new_user' => true
+                    )
+                ),
+                'text/html'
+            );
+
+        try {
+            $this->mailer->send($message);
+        } catch (Exception $ex) {
+            Debug::dump($ex);
+            return false;
+        }
+
+        return true;
+    }
 }

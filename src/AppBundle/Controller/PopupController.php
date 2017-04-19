@@ -27,6 +27,7 @@ class PopupController extends BaseController
         $action = 'create';
         if(empty($task)){
             $task = new Task();
+            $task->setProfile($this->profile);
             $task->setCreator($this->user);
 
             $form = $this->formFactory->create(TaskType::class, $task, [
@@ -41,8 +42,6 @@ class PopupController extends BaseController
 
         $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             // Set manual date.
             if(!empty($form->get('date_raw')->getData())) {
                 $date = new \DateTime($form->get('date_raw')->getData());
@@ -65,12 +64,10 @@ class PopupController extends BaseController
             ]);
 
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-
             return new JsonResponse([
                 'status' => 'error',
                 'response' => 'Er is iets fout gegaan'
             ]);
-
         }
 
         return new Response(
@@ -98,51 +95,24 @@ class PopupController extends BaseController
         ]);
     }
 
-//    public function userHasProfileAction() {
-//        $userHasProfile = new UserHasProfile();
-//        $form = $this->formFactory->create(TaskType::class, $userHasProfile, []);
-//        $form->handleRequest($this->request);
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//
-//            // Set manual date.
-//            if(!empty($form->get('date_raw')->getData())) {
-//                $date = new \DateTime($form->get('date_raw')->getData());
-//                $task->setDate($date);
-//
-//                // Set manual timestart date.
-//                if(!empty($form->get('timeStart')->getData())) {
-//                    $date = new \DateTime($form->get('date_raw')->getData(). ' ' .$form->get('timeStart')->getData());
-//                    $task->setTimeStart($date);
-//                }
-//            }
-//
-//            $this->em->persist($task);
-//            $this->em->flush();
-//
-//            return new JsonResponse([
-//                'status' => 'success',
-//                'response' => ($action == 'create') ? 'Taak is aangemaakt!' : 'Taak is aangepast!',
-//                'redirect' => $this->router->generate('agenda_index')
-//            ]);
-//
-//        } elseif ($form->isSubmitted() && !$form->isValid()) {
-//
-//            return new JsonResponse([
-//                'status' => 'error',
-//                'response' => 'Er is iets fout gegaan'
-//            ]);
-//
-//        }
-//
-//        return new Response(
-//            $this->templating->render('popup/task_form.html.twig', array(
-//                'form' => $form->createView(),
-//            ))
-//        );
-//    }
 
-    public function deleteUserHasProfileAction() {
+    public function deleteUserHasProfileAction(UserHasProfile $uhp) {
+        if(empty($uhp)) {
+            return new JsonResponse([
+                'status' => 'error',
+                'response' => 'Kan het object niet vinden.  ',
+            ]);
+        }
 
+        $this->em->remove($uhp);
+        $this->em->flush();
+
+        $data = array(
+            'status' => 'success',
+            'response' => 'De gebruiker heeft geen toegang meer tot dit profiel',
+            'redirect' => $this->router->generate('profile_index')
+        );
+
+        return new JsonResponse($data);
     }
 }

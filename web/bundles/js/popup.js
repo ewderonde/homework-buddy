@@ -26,12 +26,16 @@ var Popup = (function(){
     };
 
     var _create = function () {
+        var action;
+
         // Set click events();
         $('.create-button').on('click', function(){
             setData($(this));
         });
 
         var setData = function($button) {
+            action = $button.data('action');
+
             // Set title
             $popup.find('.popup-title').html($button.data("popup-title"));
 
@@ -40,7 +44,6 @@ var Popup = (function(){
                 type: "GET",
                 url: $button.data('action')
             }).done(function (data) {
-                console.log(data);
                 $popup.find('.form-content').html(data);
 
                 $popup.find('.time-start').timepicker({
@@ -55,37 +58,41 @@ var Popup = (function(){
                 $popup.find('.header-content').removeClass('hidden');
                 $popup.find('.submit-task').removeClass('hidden');
                 $popup.find('.confirm-delete').addClass('hidden');
-
-
-                // Add submit event
-                $popup.find('.submit-button').click(function() {
-                    submitForm($button.data('action'));
-                })
             })
         };
 
-        var submitForm = function (url) {
-            console.log('submitting');
+        // Add submit event
+        $popup.find('.submit-button').click(function() {
+            submitForm();
+        });
+
+        var submitForm = function () {
+            console.log(action);
             // Submit data.
             $.ajax({
                 type: "POST",
-                url: url,
+                url: action,
                 data: $('#popup-form').serialize()
             }).done(function (data) {
+                console.log(data);
                 if(data.hasOwnProperty('redirect')) {
                     window.location = data.redirect;
                 }
-            })
+            });
         }
     };
 
     var _edit = function () {
+        var action;
+
         // Set click events();
         $('.edit-button').on('click', function(){
             setData($(this));
         });
 
         var setData = function($button) {
+            action = $button.data('action');
+
             // Set title
             $popup.find('.popup-title').html('Taak wijzigen');
             console.log($button.data('action'));
@@ -111,20 +118,20 @@ var Popup = (function(){
                 $popup.find('.header-content').removeClass('hidden');
                 $popup.find('.submit-task').removeClass('hidden');
                 $popup.find('.confirm-delete').addClass('hidden');
-
-                // Add submit event
-                $popup.find('.submit-button').click(function() {
-                    submitForm($button.data('action'));
-                })
             })
         };
 
-        var submitForm = function (url) {
+        // Add submit event
+        $popup.find('.submit-button').click(function() {
+            submitForm();
+        });
+
+        var submitForm = function () {
             console.log('submitting');
             // Submit data.
             $.ajax({
                 type: "POST",
-                url: url,
+                url: action,
                 data: $('#popup-form').serialize()
             }).done(function (data) {
                 if(data.hasOwnProperty('redirect')) {
@@ -135,12 +142,16 @@ var Popup = (function(){
     };
 
     var _delete = function () {
+        var action;
+
         // Set click events();
         $('.delete-button').on('click', function(){
             setData($(this));
         });
 
         var setData = function($button) {
+            action = $button.data('action');
+
             // Set title
             $popup.find('.popup-title').html($button.data('popup-title'));
 
@@ -154,17 +165,18 @@ var Popup = (function(){
             $popup.find('.submit-task').addClass('hidden');
             $popup.find('.confirm-delete').removeClass('hidden');
 
-            // Add submit event
-            $popup.find('.submit-button').click(function() {
-                submitForm($button.data('action'));
-            })
         };
 
-        var submitForm = function (url) {
+        // Add submit event
+        $popup.find('.submit-button').click(function() {
+            submitForm();
+        });
+
+        var submitForm = function () {
             // Submit data.
             $.ajax({
                 type: "GET",
-                url: url,
+                url: action
             }).done(function (data) {
                 if(data.hasOwnProperty('redirect')) {
                     window.location = data.redirect;
@@ -176,20 +188,21 @@ var Popup = (function(){
     var _profileInvite = function () {
         $form = $('#profile-invite-form').clone();
         // Set click events();
-
+        var action;
 
         $('.invite-button').on('click', function(){
-            setData($(this));
+            action = $(this).data('action');
         });
 
+        $('.close-invite-form').on('click', function() {
+            console.log('hoi');
+            $form.find('.alert').addClass('hidden');
+        });
 
-        var setData = function ($button) {
-
-            // Add submit event
-            $('#profile-invite').find('.submit-button').click(function() {
-                submitForm($button.data('action')+ '?emailaddress='+ $('#emailaddress').val());
-            })
-        };
+        // Add submit event
+        $('#profile-invite').find('.submit-button').click(function() {
+            submitForm(action + '?emailaddress='+ $('#emailaddress').val());
+        });
 
 
         var submitForm = function (url) {
@@ -201,6 +214,15 @@ var Popup = (function(){
                 url: url
             }).done(function (data) {
                 console.log(data);
+                var $alert = $('#'+data.status+'-invite');
+                $alert.removeClass('hidden');
+                $alert.html(data.response);
+
+                if(data.status == 'success') {
+                    window.setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                }
             })
         }
     };

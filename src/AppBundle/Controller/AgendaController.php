@@ -31,18 +31,18 @@ class AgendaController extends BaseController
         switch ($params['view']) {
             // Single day.
             case 1:
-                $params['tasks'] = $taskRepository->findTasksForDay($params['day']);
+                $params['tasks'] = $taskRepository->findTasksForDay($this->profile, $params['day']);
                 break;
             // Tasks for week.
             case 2:
                 $interval = $this->agendaService->getWeekInterval($params['week'], $params['year']);
-                $tasksRaw = $taskRepository->findTasksForInterval($interval['start'], $interval['end']);
+                $tasksRaw = $taskRepository->findTasksForInterval($this->profile, $interval['start'], $interval['end']);
                 $params['tasks'] = $this->transformTaskData($interval['start'], $interval['end'], $tasksRaw);
                 break;
             // Tasks for whole month.
             case 3:
                 $interval = $this->agendaService->getMonthInterval($params['month_number'], $params['year']);
-                $tasksRaw = $taskRepository->findTasksForInterval($interval['start'], $interval['end']);
+                $tasksRaw = $taskRepository->findTasksForInterval($this->profile, $interval['start'], $interval['end']);
                 $params['tasks'] = $this->transformTaskData($interval['start'], $interval['end'], $tasksRaw);
                 break;
         }

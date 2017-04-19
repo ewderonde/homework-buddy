@@ -1,7 +1,7 @@
 AppBundle\Entity\Profile:
     type: entity
     table: profile
-    # repositoryClass: AppBundle\Repository\UserRepository
+    repositoryClass: AppBundle\Repository\ProfileRepository
     id:
         id:
             type: integer
