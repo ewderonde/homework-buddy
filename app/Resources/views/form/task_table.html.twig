@@ -23,7 +23,7 @@
             <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-5">{{ task.description }}</td>
             <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.subject }}</td>
             <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.timeStart|date('H:i') }}</td>
-            <td class="col-md-1" >
+            <td class="col-md-1" align="right">
                 <i class="glyphicon glyphicon-pencil edit-button" data-popup-open="popup-1" style="cursor: pointer;" data-date="{{ task.date|date('d-m-Y') }}" data-action="{{ path('edit_task', {'id' : task.id}) }}"></i>
                 <i class="glyphicon glyphicon-trash delete-button" data-popup-description="Weet je zeker dat je deze taak wilt verwijderen?" data-popup-title="Taak verwijderen" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('delete_task', {'id' : task.id}) }}"></i>
             </td>

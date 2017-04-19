@@ -31,3 +31,12 @@
     height: 660px;
     overflow-y: scroll;
 }
+
+.cursor {
+    cursor: pointer;
+    color: #a8a8a8;
+}
+
+.month-row-template {
+    margin-top:12px;
+}

@@ -14,3 +14,10 @@ services:
             - '@translator'
         tags:
             - { name: form.type }
+
+    app.form.subject:
+        class: AppBundle\Form\SubjectType
+        arguments:
+            - '@translator'
+        tags:
+            - { name: form.type }

@@ -159,7 +159,7 @@ var Agenda = (function(){
         });
 
         $('.datepicker').find('.ui-widget').empty();
-        $('.datepicker').find('.ui-widget').css({'width': '480px', 'padding': '15px', 'height': '170px'});
+        $('.datepicker').find('.ui-widget').css({'width': '480px', 'padding': '15px', 'height': '190px'});
         $('.datepicker').css('z-index', 1000);
 
         var createMonthButtons = function() {

@@ -1,0 +1,23 @@
+subject_index:
+    path: /
+    defaults:
+        _controller: app.controller.subject:indexAction
+
+create_subject:
+    path: /ajax/create/
+    defaults:
+        _controller: app.controller.popup:subjectAction
+
+edit_subject:
+    path: /ajax/{id}/edit
+    defaults:
+        _controller: app.controller.popup:subjectAction
+    requirements:
+        id: \d+
+
+delete_subject:
+    path: /ajax/{id}/delete
+    defaults:
+        _controller: app.controller.popup:deleteSubjectAction
+    requirements:
+        id: \d+

@@ -11,9 +11,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Profile;
+use AppBundle\Entity\Subject;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserHasProfile;
+use AppBundle\Form\SubjectType;
 use AppBundle\Form\TaskType;
 use Doctrine\Common\Util\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -114,5 +116,65 @@ class PopupController extends BaseController
         );
 
         return new JsonResponse($data);
+    }
+
+
+    public function subjectAction(Subject $subject = null) {
+        $action = 'edit';
+        if(empty($subject)){
+            $subject = new Subject();
+            $subject->setProfile($this->profile);
+
+            $action = 'create';
+        }
+
+        $form = $this->formFactory->create(SubjectType::class, $subject, [
+        ]);
+
+        $form->handleRequest($this->request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if($action == 'create') {
+                $this->em->persist($subject);
+            }
+
+            $this->em->flush();
+
+            return new JsonResponse([
+                'status' => 'success',
+                'response' => ($action == 'create') ? 'Vak is aangemaakt!' : 'Vak is aangepast!',
+                'redirect' => $this->router->generate('subject_index')
+            ]);
+
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            return new JsonResponse([
+                'status' => 'error',
+                'response' => 'Er is iets fout gegaan'
+            ]);
+        }
+
+        return new Response(
+            $this->templating->render('popup/subject_form.html.twig', array(
+                'form' => $form->createView(),
+            ))
+        );
+    }
+
+    public function deleteSubjectAction (Subject $subject = null) {
+        if(empty($subject)) {
+            return new JsonResponse([
+                'status' => 'error',
+                'response' => 'Kan het opgegeven vak niet vinden',
+            ]);
+        }
+
+        $this->em->remove($subject);
+        $this->em->flush();
+
+        return new JsonResponse([
+            'status' => 'success',
+            'response' => 'Het vak is verwijdert!',
+            'redirect' => $this->router->generate('subject_index')
+        ]);
     }
 }

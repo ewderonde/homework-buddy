@@ -20,7 +20,7 @@
     font-family: Tahoma;
     font-size: 12px;
 
-    background: #141517;
+    background: #2c3742;
 
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -163,4 +163,8 @@
     z-index: 999;
     top: 18px;
     left: -3px;
+}
+
+.ui-datepicker-calendar {
+    margin-left: -6px !important;
 }

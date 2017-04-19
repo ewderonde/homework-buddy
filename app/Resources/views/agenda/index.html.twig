@@ -13,7 +13,7 @@
                             <a href="{{ path('agenda_index', {'view':'3'}) }}" class="btn btn-secondary {% if view == '3' %}active{% endif %}" style="cursor:pointer;">Maand</a>
                             <div class="btn-group mr-2" role="group" aria-label="First group" style="margin-left:15px">
 
-                                <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;">
+                                <a class="datepicker-toggle btn btn-default" style="cursor:pointer;">
                                     {% if view == '1' %}
                                         {{ day }}
                                     {% elseif view == '2' %}
@@ -22,7 +22,7 @@
                                         {{ month_name }}
                                     {% endif %}
                                 </a>
-                                <a class="datepicker-toggle btn btn-secondary" style="cursor:pointer;"><i class="fa fa-calendar" aria-hidden="true"></i></a>
+                                <a class="datepicker-toggle btn btn-default" style="cursor:pointer;"><i class="fa fa-calendar" aria-hidden="true"></i></a>
 
                             </div>
                         </div>
@@ -34,30 +34,30 @@
                 <div class="month-row-template hidden col-lg-12">
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group col-lg-12" role="group" aria-label="First group">
-                            <a href="{{ path('agenda_index', {'month':'0'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '0' %}active{% endif %}" style="cursor:pointer; ">Januari</a>
-                            <a href="{{ path('agenda_index', {'month':'1'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '1' %}active{% endif %}" style="cursor:pointer;">Februari</a>
-                            <a href="{{ path('agenda_index', {'month':'2'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '2' %}active{% endif %}" style="cursor:pointer;">Maart</a>
+                            <a href="{{ path('agenda_index', {'month':'0'}) }}" class="btn btn-primary cursor  col-lg-4 {% if month_number == '0' %}active{% endif %}" style="border-bottom-left-radius: 0px; ">Januari</a>
+                            <a href="{{ path('agenda_index', {'month':'1'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '1' %}active{% endif %}">Februari</a>
+                            <a href="{{ path('agenda_index', {'month':'2'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '2' %}active{% endif %}" style="border-bottom-right-radius: 0px;">Maart</a>
                         </div>
                     </div>
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group col-lg-12" role="group" aria-label="First group">
-                            <a href="{{ path('agenda_index', {'month':'3'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '3' %}active{% endif %}" style="cursor:pointer;">April</a>
-                            <a href="{{ path('agenda_index', {'month':'4'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '4' %}active{% endif %}" style="cursor:pointer;">Mei</a>
-                            <a href="{{ path('agenda_index', {'month':'5'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '5' %}active{% endif %}" style="cursor:pointer;">Juni</a>
+                            <a href="{{ path('agenda_index', {'month':'3'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '3' %}active{% endif %}" style="border-bottom-left-radius: 0px; border-top-left-radius: 0px;">April</a>
+                            <a href="{{ path('agenda_index', {'month':'4'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '4' %}active{% endif %}" >Mei</a>
+                            <a href="{{ path('agenda_index', {'month':'5'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '5' %}active{% endif %}" style="border-bottom-right-radius: 0px; border-top-right-radius: 0px;">Juni</a>
                         </div>
                     </div>
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group col-lg-12" role="group" aria-label="First group">
-                            <a href="{{ path('agenda_index', {'month':'6'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '6' %}active{% endif %}" style="cursor:pointer;">Juli</a>
-                            <a href="{{ path('agenda_index', {'month':'7'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '7' %}active{% endif %}" style="cursor:pointer;">Augustus</a>
-                            <a href="{{ path('agenda_index', {'month':'8'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '8' %}active{% endif %}" style="cursor:pointer;">September</a>
+                            <a href="{{ path('agenda_index', {'month':'6'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '6' %}active{% endif %}" style="border-bottom-left-radius: 0px; border-top-left-radius: 0px;">Juli</a>
+                            <a href="{{ path('agenda_index', {'month':'7'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '7' %}active{% endif %}">Augustus</a>
+                            <a href="{{ path('agenda_index', {'month':'8'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '8' %}active{% endif %}" style="border-bottom-right-radius: 0px; border-top-right-radius: 0px;">September</a>
                         </div>
                     </div>
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group col-lg-12" role="group" aria-label="First group">
-                            <a href="{{ path('agenda_index', {'month':'9'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '9' %}active{% endif %}" style="cursor:pointer;">Oktober</a>
-                            <a href="{{ path('agenda_index', {'month':'10'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '10' %}active{% endif %}" style="cursor:pointer;">November</a>
-                            <a href="{{ path('agenda_index', {'month':'11'}) }}" class="btn btn-primary col-lg-4 {% if month_number == '11' %}active{% endif %}" style="cursor:pointer;">December</a>
+                            <a href="{{ path('agenda_index', {'month':'9'}) }}"  class="btn btn-primary cursor col-lg-4 {% if month_number == '9' %}active{% endif %}" style="border-top-left-radius: 0px;">Oktober</a>
+                            <a href="{{ path('agenda_index', {'month':'10'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '10' %}active{% endif %}" >November</a>
+                            <a href="{{ path('agenda_index', {'month':'11'}) }}" class="btn btn-primary cursor col-lg-4 {% if month_number == '11' %}active{% endif %}" style="border-top-right-radius: 0px; ">December</a>
                         </div>
                     </div>
                 </div>

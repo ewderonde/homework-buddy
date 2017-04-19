@@ -21,3 +21,7 @@ task:
 profile:
     prefix: /profile
     resource: '@AppBundle/Resources/routing/profile.yml'
+
+subject:
+    prefix: /subject
+    resource: '@AppBundle/Resources/routing/subject.yml'

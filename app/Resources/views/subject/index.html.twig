@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title no-padding" >Vakken</div>
+
+                    <div class="panel-options">
+                        <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-popup-title="Vak toevoegen" data-action="{{ path('create_subject') }}">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% if subjects|length > 0 %}
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Vak</th>
+                                <th>Omschrijving</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for subject in subjects %}
+                                <tr>
+                                    <td class="col-md-2">{{ subject.title }}</td>
+                                    <td class="col-md-9">{{ subject.description }}</td>
+                                    <td class="col-md-1" >
+                                        <i class="glyphicon glyphicon-pencil edit-button" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('edit_subject', {'id' : subject.id}) }}"></i>
+                                        <i class="glyphicon glyphicon-trash delete-button" data-popup-description="Weet je zeker dat je dit vak wilt verwijderen?" data-popup-title="Vak verwijderen" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('delete_subject', {'id' : subject.id}) }}"></i>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Er zijn nog geen vakken toegevoegd</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div id="popup-template" class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+                <div class="header-content hidden">
+                    <h2 class="popup-title"></h2>
+                    <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                    <hr>
+                </div>
+                <div class="form-content">
+                    <p>Gegevens ophalen...</p>
+                </div>
+                <div class="submit-task hidden">
+                    <p class="pull-right" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                        <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
+                </div>
+                <div class="confirm-delete hidden">
+                    <p class="pull-left" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                        <button type="button" class="btn btn-danger submit-button" href="#">Verwijderen</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        Popup.create();
+        Popup.edit();
+        Popup.delete();
+    </script>
+{% endblock %}
