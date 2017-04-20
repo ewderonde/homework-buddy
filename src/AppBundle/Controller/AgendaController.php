@@ -84,4 +84,15 @@ class AgendaController extends BaseController
         return new RedirectResponse($this->router->generate('agenda_index'));
 
     }
+
+    public function changeTaskSatusDashboardAction (Task $task) {
+        $currentStatus = $task->isStatus();
+        $newStatus = ($currentStatus == 1)? 0 : 1;
+
+        $task->setStatus($newStatus);
+        $this->em->flush();
+
+        return new RedirectResponse($this->router->generate('dashboard'));
+
+    }
 }

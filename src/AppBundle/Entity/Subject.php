@@ -142,6 +142,15 @@ class Subject
     }
 
     /**
+     * @param Grade $grade
+     */
+    public function removeGrade($grade)
+    {
+        $this->grades->removeElement($grade);
+        $grade->setSubject(null);
+    }
+
+    /**
      * @return Profile
      */
     public function getProfile()
@@ -155,5 +164,18 @@ class Subject
     public function setProfile($profile)
     {
         $this->profile = $profile;
+    }
+
+    public function toArray() {
+        $grades = [];
+        foreach($this->grades as $grade) {
+            $grades[] = $grade->getGrade();
+        }
+
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'grades' => $grades
+        ];
     }
 }

@@ -1,0 +1,47 @@
+{% form_theme form with ['form/subject_grade_row.html.twig'] %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'popup-form', 'class': 'subject-grade-form'}} ) }}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_widget(form.grades) }}
+        </div>
+    </div>
+{{ form_end(form) }}
+
+
+<script>
+    var $form = '';
+
+    var gradeCollectionInitialize = function () {
+        $form = $('.subject-grade-form');
+
+        // Set event listeners
+        $('#add-grade').click(function () {
+            gradeMethods.addGrade();
+        });
+
+        $('.grade-line').each(function(){
+            $(this).find('.remove-grade').click(function() {
+                $(this).closest('.grade-line').remove();
+            });
+        });
+    };
+
+    var gradeMethods = {
+        addGrade: function() {
+            var gradeCount = $('.grade-line').length;
+            console.log('hey');
+            console.log(gradeCount);
+
+            var prototype = $('#subject_grade_grades').data('prototype');
+            var newWidget = $(prototype.replace(/__name__/g, gradeCount));
+            $('#subject_grade_grades').append(newWidget);
+
+            newWidget.find('.remove-grade').click(function () {
+                $(this).closest('.grade-line').remove();
+            })
+        },
+    };
+
+    gradeCollectionInitialize();
+</script>

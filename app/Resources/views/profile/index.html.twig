@@ -30,7 +30,7 @@
                                     <td class="">{{ user.firstName }}  {{ user.lastName }}</td>
                                     <td class="col-md-2">{{ user.email }}</td>
                                     <td class="col-md-5">{{ user.dateCreated|date('d-m-y H:i') }}</td>
-                                    <td class="col-md-1" >
+                                    <td class="col-md-1" align="right">
                                         <i class="glyphicon glyphicon-trash delete-button" data-popup-open="popup-1"
                                            data-popup-description="Weet je zeker dat je de toegang wilt ontzeggen voor deze gebruiker?"
                                            data-popup-title="Toegang ontzeggen"
@@ -99,13 +99,23 @@
                     <hr>
                 </div>
                 <div class="form-content">
-                    <p>Gegevens ophalen...</p>
+                    <!-- form content -->
                 </div>
                 <div class="submit-task hidden">
+                    <div class="spinner loading-submit-action hidden">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
                     <p class="pull-right" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
-                    <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
+                        <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
                 </div>
                 <div class="confirm-delete hidden">
+                    <div class="spinner loading-delete-action hidden">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
                     <p class="pull-left" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
                         <button type="button" class="btn btn-danger submit-button" href="#">Verwijderen</button></p>
                 </div>
@@ -138,6 +148,11 @@
                                 Uitnodigen
                             </button>
                         </fieldset>
+                        <div class="spinner profile-invite-action hidden">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
                     </div>
                 </div>
             </div>

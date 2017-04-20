@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row graph-container">
+        <div class="col-md-12 graph-data">
+            {% if subjects|length > 0 %}
+                {% for subject in subjects %}
+                    <div class="content-box-large">
+                        <div class="panel-heading">
+                            <div class="panel-title no-padding">{{ subject.title }}</div>
+
+                            <div class="panel-options">
+                                <a href="#" data-rel="collapse" data-popup-open="popup-1" class="create-button" data-popup-title="Resultaten" data-action="{{ path('subject_grade_form', {'id': subject.id }) }}">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            {% if subject.grades|length > 1 %}
+                                <div id="grade{{ subject.id }}" style="height: 230px;"></div>
+                            {% elseif subject.grades|length > 0 %}
+                                <p>Voor het vak <strong>{{ subject.title }}</strong> zijn er nog niet genoeg cijfers voor het tonen van een grafiek.</p>
+                            {% else %}
+                                <p>Voor het vak <strong>{{ subject.title }}</strong> zijn er nog geen cijfers ingevoerd.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else  %}
+                <div class="content-box-large">
+                    <div class="panel-heading">
+                        <div class="panel-title no-padding">Resultaten</div>
+                    </div>
+                    <div class="panel-body">
+                        <p>Je hebt nog geen vakken toegevoegd.</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="popup-template" class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+                <div class="header-content hidden">
+                    <h2 class="popup-title"></h2>
+                    <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                    <hr>
+                </div>
+                <div class="form-content">
+                    <!-- form content -->
+                </div>
+                <div class="submit-task hidden">
+                    <div class="spinner loading-submit-action hidden">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p class="pull-right" style="margin-top:10px;"><button class="btn btn-default" data-popup-close="popup-1" href="#">Annuleer</button>
+                    <button type="button" class="btn btn-success submit-button" href="#">Opslaan</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        {% if subjects|length > 0 %}
+            {% for subject in subjects %}
+                {% if subject.grades|length > 0 %}
+                    $(document).ready(function() {
+                        GradeChart.new('grade'+'{{ subject.id }}', '{{ subject.grades|json_encode }}');
+                    });
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        Popup.create();
+    </script>
+{% endblock %}

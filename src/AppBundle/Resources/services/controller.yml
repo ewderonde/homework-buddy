@@ -44,9 +44,13 @@ services:
       parent: app.controller.base
 
   app.controller.profile:
-       class: AppBundle\Controller\ProfileController
-       parent: app.controller.base
+      class: AppBundle\Controller\ProfileController
+      parent: app.controller.base
 
   app.controller.subject:
-       class: AppBundle\Controller\SubjectController
-       parent: app.controller.base
+      class: AppBundle\Controller\SubjectController
+      parent: app.controller.base
+
+  app.controller.grade:
+      class: AppBundle\Controller\GradeController
+      parent: app.controller.base

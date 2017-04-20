@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
 
 
 use AppBundle\Entity\Profile;
+use AppBundle\Entity\Subject;
 
 class SubjectRepository extends \Doctrine\ORM\EntityRepository
 {
@@ -23,4 +24,31 @@ class SubjectRepository extends \Doctrine\ORM\EntityRepository
 
         return $result->getQuery()->getResult();
     }
+
+    public function getProfileSubjectsAsArray(Profile $profile) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $result = $qb->select('s')
+            ->from('AppBundle:Subject', 's')
+            ->where('s.profile = :profile')
+            ->setParameter('profile', $profile);
+
+        return $result->getQuery()->getArrayResult();
+    }
+
+    public function getAllSubjectGrades(Profile $profile, $subject) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $result = $qb->select('g')
+            ->from('AppBundle:Grade', 'g')
+            ->where('g.subject = :subject')
+            ->setParameter('subject', $subject);
+
+        return $result->getQuery()->getArrayResult();
+    }
+
+    public function getLatestGrades() {
+
+    }
+
 }

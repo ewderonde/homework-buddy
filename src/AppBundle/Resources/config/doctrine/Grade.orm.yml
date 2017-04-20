@@ -18,6 +18,11 @@ AppBundle\Entity\Grade:
             column: description
             type: string
             length: 255
+            nullable: true
+        dateCreated:
+            column: date_created
+            type: datetime
+            nullable: true
     manyToOne:
         subject:
             targetEntity: AppBundle\Entity\Subject

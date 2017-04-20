@@ -29,7 +29,7 @@
                                 <tr>
                                     <td class="col-md-2">{{ subject.title }}</td>
                                     <td class="col-md-9">{{ subject.description }}</td>
-                                    <td class="col-md-1" >
+                                    <td class="col-md-1" align="right">
                                         <i class="glyphicon glyphicon-pencil edit-button" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('edit_subject', {'id' : subject.id}) }}"></i>
                                         <i class="glyphicon glyphicon-trash delete-button" data-popup-description="Weet je zeker dat je dit vak wilt verwijderen?" data-popup-title="Vak verwijderen" data-popup-open="popup-1" style="cursor: pointer;" data-action="{{ path('delete_subject', {'id' : subject.id}) }}"></i>
                                     </td>

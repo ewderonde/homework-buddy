@@ -41,8 +41,7 @@ class ProfileController extends BaseController
 
         $profile->setActive(1);
         $this->em->flush();
-//        Debug::dump($profiles);
-//        exit;
+
         return new RedirectResponse($this->router->generate('profile_index'));
     }
 
@@ -118,12 +117,12 @@ class ProfileController extends BaseController
 
     public function generateInviteHash($data)
     {
-        $now = new \DateTime();
+        $date = new \DateTime();
         /** @var UserHasProfile $uhp */
         $uhp = $data;
         $inviteData = array(
             $uhp->getProfile()->getTitle(),
-            $now->getTimestamp(),
+            $date->getTimestamp(),
             uniqid()
         );
 
@@ -154,11 +153,7 @@ class ProfileController extends BaseController
         try {
             $this->mailer->send($message);
         } catch (Exception $ex) {
-            Debug::dump($ex);
-            return false;
         }
-
-        return true;
     }
 
     public function sendProfileInviteEmailToNewUser(UserHasProfile $uhp, $email) {
@@ -185,10 +180,7 @@ class ProfileController extends BaseController
         try {
             $this->mailer->send($message);
         } catch (Exception $ex) {
-            Debug::dump($ex);
-            return false;
-        }
 
-        return true;
+        }
     }
 }

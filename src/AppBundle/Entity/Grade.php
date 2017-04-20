@@ -27,12 +27,18 @@ class Grade
     private $description;
 
     /**
+     * @var \DateTime
+     */
+    private $dateCreated;
+
+    /**
      * @var Subject
      */
     private $subject;
 
     public function __construct()
     {
+        $this->dateCreated = new \DateTime();
     }
 
     /**
@@ -92,4 +98,28 @@ class Grade
     }
 
 
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'grade' => $this->grade
+        ];
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param \DateTime $dateCreated
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+    }
 }
+
+

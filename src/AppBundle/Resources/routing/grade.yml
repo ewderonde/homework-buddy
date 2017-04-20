@@ -1,0 +1,9 @@
+grade_index:
+    path: /
+    defaults:
+        _controller: app.controller.grade:indexAction
+
+subject_grade_form:
+    path: /{id}/subject
+    defaults:
+        _controller: app.controller.popup:subjectGradeAction

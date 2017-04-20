@@ -1,0 +1,36 @@
+{% block _subject_grade_grades_widget %}
+    <div class="grade-wrapper">
+        <div id='grade-content' class="table-content">
+            <div class="row">
+                <div class="col-md-12" ">
+                    <div class="col-md-2" style="margin-left:"2px><strong>Cijfer</strong></div><div class="col-md-9" style="margin-left:-15px;"><strong>Omschrijving</strong></div>
+                </div>
+            </div>
+            {{ form_widget(form) }}
+            <div class="add-grade-section" style="margin-left: 15px !important;margin-top: 12px;">
+                <a href="javascript://" data-collection="subject_grades" id="add-grade" class="add-extra-item collection-action collection-add" title="Toevoegen">Toevoegen</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block subject_grade_widget %}
+    <div class="grade-line form-inline">
+        <fieldset>
+            <div class="form-group col-md-2">
+                {{ form_widget(form.grade, {'attr': { 'class': 'form-control'}} ) }}
+            </div>
+            <div class="input-group col-md-9">
+                {{ form_widget(form.description, {'attr': { 'class': 'form-control'}} ) }}
+                <span class="input-group-addon btn-danger remove-grade cursor">X</span>
+            </div>
+        </fieldset>
+    </div>
+{% endblock %}
+
+{% block subject_grade_label %}
+{% endblock %}
+
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+</div>

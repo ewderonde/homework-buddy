@@ -14,6 +14,7 @@
 
             <link href="{{ asset('bundles/css/styles.css') }}" rel="stylesheet">
             <link href="{{ asset('bundles/css/popup.css') }}" rel="stylesheet">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -25,22 +26,10 @@
                     <div class="col-md-12">
                         <div class="col-md-10">
                             <!-- Logo -->
-                            <div class="logo">
-                                <h1><a href="#">{{ title }}</a></h1>
+                            <div class="col-md-2 col-md-offset-2 logo ">
+                                <h1 style="margin-left:10px"><a href="#">{{ title }}</a></h1>
                             </div>
                         </div>
-                        {#<div class="col-md-5">#}
-                            {#<div class="row">#}
-                                {#<div class="col-lg-12">#}
-                                    {#<div class="input-group form">#}
-                                        {#<input type="text" class="form-control" placeholder="Search...">#}
-                                        {#<span class="input-group-btn">#}
-                                 {#<button class="btn btn-primary" type="button">Search</button>#}
-                               {#</span>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
                         <div class="col-md-2">
                             <div class="navbar navbar-inverse" role="banner">
                                 <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
@@ -69,7 +58,7 @@
                             <!-- Main menu -->
                             <li class="{% if current_path == 'dashboard' %}current{% endif %}"><a href="{{ path('dashboard') }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
                             <li class="{% if current_path == 'agenda' %}current{% endif %}"><a href="{{ path('agenda_index') }}"><i class="glyphicon glyphicon-calendar"></i> Agenda</a></li>
-                            <li class="{% if current_path == 'grades' %}current{% endif %}"><a href="#"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
+                            <li class="{% if current_path == 'grades' %}current{% endif %}"><a href="{{ path('grade_index') }}"><i class="glyphicon glyphicon-stats"></i> Cijfers</a></li>
                             <li class="{% if current_path == 'subjects' %}current{% endif %}"><a href="{{ path('subject_index') }}"><i class="glyphicon glyphicon-book"></i> Vakken</a></li>
                             <li class="{% if current_path == 'manage' %}current{% endif %}"><a href="{{ path('profile_index') }}"><i class="glyphicon glyphicon-cog"></i> Beheren</a></li>
                         </ul>
@@ -107,14 +96,12 @@
             <script src="{{ asset('bundles/js/custom.js') }}"></script>
             <script src="{{ asset('bundles/js/popup.js') }}"></script>
             <script src="{{ asset('bundles/js/timepicker.js') }}"></script>
-            {#<script src="{{ asset('bundles/js/bootstrap-datepicker.min.js') }}"></script>#}
-
-            <script>
-                $("#menu-toggle").click(function(e) {
-                    e.preventDefault();
-                    $("#wrapper").toggleClass("toggled");
-                });
-            </script>
+            {% if current_path == 'grades' or current_path == 'dashboard' %}
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+                <script src="{{ asset('bundles/js/grade.js') }}"></script>
+            {% endif %}
         {% endblock %}
     </body>
 </html>

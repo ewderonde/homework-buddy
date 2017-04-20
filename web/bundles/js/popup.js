@@ -8,7 +8,7 @@ var Popup = (function(){
 
             e.preventDefault();
 
-            $popup.find('.form-content').html('<p>Gegevens ophalen ...</p>')
+            $popup.find('.form-content').html('<div class="spinner loading-form-retrieval"> <div class="bounce1"></div> <div class="bounce2"></div> <div class="bounce3"></div> </div>')
         });
 
         //----- CLOSE
@@ -17,6 +17,8 @@ var Popup = (function(){
             $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 
             e.preventDefault();
+
+            $('.spinner').addClass('hidden');
 
             // Hide all content.
             $popup.find('.header-content').addClass('hidden');
@@ -28,7 +30,7 @@ var Popup = (function(){
     var _create = function () {
         var action;
 
-        // Set click events();
+        //Set click events();
         $('.create-button').on('click', function(){
             setData($(this));
         });
@@ -67,6 +69,8 @@ var Popup = (function(){
         });
 
         var submitForm = function () {
+
+            $('.loading-submit-action').removeClass('hidden');
             console.log(action);
             // Submit data.
             $.ajax({
@@ -74,7 +78,6 @@ var Popup = (function(){
                 url: action,
                 data: $('#popup-form').serialize()
             }).done(function (data) {
-                console.log(data);
                 if(data.hasOwnProperty('redirect')) {
                     window.location = data.redirect;
                 }
@@ -93,9 +96,8 @@ var Popup = (function(){
         var setData = function($button) {
             action = $button.data('action');
 
-            // Set title
+            // Set titles
             $popup.find('.popup-title').html('Taak wijzigen');
-            console.log($button.data('action'));
 
             // Retrieve form
             $.ajax({
@@ -113,7 +115,6 @@ var Popup = (function(){
 
                 $('#popup-form').find('.date').val($button.data('date'));
 
-
                 // Show the right content.
                 $popup.find('.header-content').removeClass('hidden');
                 $popup.find('.submit-task').removeClass('hidden');
@@ -127,7 +128,8 @@ var Popup = (function(){
         });
 
         var submitForm = function () {
-            console.log('submitting');
+            $('.loading-submit-action').removeClass('hidden');
+
             // Submit data.
             $.ajax({
                 type: "POST",
@@ -173,6 +175,7 @@ var Popup = (function(){
         });
 
         var submitForm = function () {
+            $('.loading-delete-action').removeClass('hidden');
             // Submit data.
             $.ajax({
                 type: "GET",
@@ -195,7 +198,6 @@ var Popup = (function(){
         });
 
         $('.close-invite-form').on('click', function() {
-            console.log('hoi');
             $form.find('.alert').addClass('hidden');
         });
 
@@ -206,14 +208,16 @@ var Popup = (function(){
 
 
         var submitForm = function (url) {
-            console.log(url);
+            $('.profile-invite-action').removeClass('hidden');
 
             // Submit data.
             $.ajax({
                 type: "GET",
                 url: url
             }).done(function (data) {
-                console.log(data);
+                $('.alert').addClass('hidden');
+                $('.profile-invite-action').addClass('hidden');
+
                 var $alert = $('#'+data.status+'-invite');
                 $alert.removeClass('hidden');
                 $alert.html(data.response);

@@ -15,6 +15,7 @@ use AppBundle\Entity\Subject;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserHasProfile;
+use AppBundle\Form\SubjectGradeType;
 use AppBundle\Form\SubjectType;
 use AppBundle\Form\TaskType;
 use Doctrine\Common\Util\Debug;
@@ -177,4 +178,42 @@ class PopupController extends BaseController
             'redirect' => $this->router->generate('subject_index')
         ]);
     }
+
+    public function subjectGradeAction(Subject $subject) {
+        $form = $this->formFactory->create(SubjectGradeType::class, $subject, [
+        ]);
+
+        $form->handleRequest($this->request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // get posted grades
+            $grades = $form->get('grades')->getData();
+
+            foreach($grades as $grade) {
+                $grade->setSubject($subject);
+                $this->em->persist($grade);
+            }
+
+            $this->em->flush();
+
+            return new JsonResponse([
+                'status' => 'success',
+                'response' => 'Wijzigingen zijn opgeslagen!',
+                'redirect' => $this->router->generate('grade_index')
+            ]);
+
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            return new JsonResponse([
+                'status' => 'error',
+                'response' => 'Er is iets fout gegaan'
+            ]);
+        }
+
+        return new Response(
+            $this->templating->render('popup/subject_grade_form.html.twig', array(
+                'form' => $form->createView(),
+            ))
+        );
+    }
+
 }

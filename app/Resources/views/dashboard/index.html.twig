@@ -1,5 +1,146 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>Dashboard content</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title no-padding" style="margin:0 auto;"><h4>Status</h4></div>
+
+                    <div class="panel-options">
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div id="task-donut" style="height: 230px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title no-padding" ><strong>Vandaag - {{ today }}</strong></div>
+                </div>
+                <div class="panel-body" style="height: 258px;">
+                    {% if tasks|length > 0 %}
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Taak</th>
+                                <th>Vak</th>
+                                <th>Tijd</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for task in tasks %}
+                                <tr class="{% if not task.timeStart is empty and task.timeStart|date('H:i') < "now"|date('H:i') and task.status == 0  %}danger
+                                                    {% elseif task.date|date('d-m-Y') < "now"|date('d-m-Y') and task.status == 0%}danger {% endif %}">
+                                    <td class="">
+                                        {% if task.status == 1 %}
+                                            <a style="text-decoration: none" href="{{ path('change_task_status_dashboard', {'id': task.id }) }}"><i class="glyphicon glyphicon-check" style="cursor: pointer;"></i></a>
+                                        {% else %}
+                                            <a style="text-decoration: none" href="{{ path('change_task_status_dashboard', {'id': task.id }) }}"><i class="glyphicon glyphicon-unchecked" style="cursor: pointer;"></i></a>
+                                        {% endif %}</td>
+                                    <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-6">{{ task.title }}</td>
+                                    <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.subject }}</td>
+                                    <td style="{% if task.status  == 1%}text-decoration: line-through;{% endif %} " class="col-md-2">{{ task.timeStart|date('H:i') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Er zijn geen taken voor vandaag</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title no-padding" style="margin:0 auto;"><h4>Cijfers</h4></div>
+
+                    <div class="panel-options">
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div id="grade-bar" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            Morris.Donut({
+                element: 'task-donut',
+                data: [
+                    {label: "Voltooid", value: '{{ complete }}'},
+                    {label: "Niet voltooid", value: '{{ incomplete }}'}
+                ],
+                formatter: function(y, data) {
+                    return y + '%';
+                }
+            });
+
+            console.log('{{ subjects|json_encode }}');
+            {#var subjects = calculateGrades('{{ subjects|json_encode }}');#}
+
+            Morris.Bar({
+                element: 'grade-bar',
+                data: [
+                    { subject: 'Wiskunde', average: 6.3},
+                    { subject: 'Engels', average: 5.5},
+                    { subject: 'Duits', average: 9.1},
+                    { subject: 'Frans', average: 7.7},
+                    { subject: 'CKV', average: 6.7},
+//                    { subject: 'Maatschappijleer', average: 8.9}
+                ],
+                xkey: 'subject',
+                ykeys: ['average'],
+                labels: ['gemiddelde'],
+                ymax: 10,
+                xLabelMargin: 10
+            });
+        });
+
+        var calculateGrades = function (data) {
+            var gradesRaw = JSON.parse(data);
+            var grades = [];
+            var gradeCount = 0;
+            var gradeTotal = 0;
+
+            console.log(gradesRaw);
+//            for(var i = 0; i < gradesRaw.length; i++) {
+//                gradeTotal += gradesRaw[i];
+//                gradeCount++;
+//
+//                // Round up decimals.
+//                var averageRaw = gradeTotal / gradeCount;
+//                var average = Math.round( averageRaw * 10 ) / 10;
+//
+//                var grade = {
+//                    average: average,
+//                    grade: Math.round( gradesRaw[i] * 10 ) / 10
+//                };
+//
+//                grades.push(grade);
+//            }
+//            return grades;
+        };
+    </script>
+
 {% endblock %}

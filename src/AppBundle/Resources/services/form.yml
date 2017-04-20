@@ -21,3 +21,17 @@ services:
             - '@translator'
         tags:
             - { name: form.type }
+
+    app.form.subject_grade:
+        class: AppBundle\Form\SubjectGradeType
+        arguments:
+            - '@translator'
+        tags:
+            - { name: form.type }
+
+    app.form.grade:
+        class: AppBundle\Form\GradeType
+        arguments:
+            - '@translator'
+        tags:
+            - { name: form.type }
