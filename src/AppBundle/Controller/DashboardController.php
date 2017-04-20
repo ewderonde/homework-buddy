@@ -31,8 +31,18 @@ class DashboardController extends BaseController
         $incomplete = $taskRepo->getIncompletedTaskCountForDay($this->profile, $data['today']);
         $total = $taskRepo->getTotalTaskCountForDay($this->profile, $data['today']);
 
-        $data['complete'] = round(($complete / $total) * 100);
-        $data['incomplete'] = round(($incomplete / $total) * 100);
+        if($incomplete != 0 && $total != 0) {
+            $data['incomplete'] = round(($incomplete / $total) * 100);
+        } else {
+            $data['incomplete'] = 0;
+        }
+        if($complete != 0 && $total != 0) {
+            $data['complete'] = round(($complete / $total) * 100);
+        }else {
+            $data['complete'] = 0;
+        }
+
+
 
         $subjectRepo = $this->em->getRepository('AppBundle:Subject');
         $subjectsRaw = $subjectRepo->getProfileSubjects($this->profile);
