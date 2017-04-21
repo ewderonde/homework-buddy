@@ -47,8 +47,16 @@ class SubjectRepository extends \Doctrine\ORM\EntityRepository
         return $result->getQuery()->getArrayResult();
     }
 
-    public function getLatestGrades() {
+    public function getLatestGradesForProfile(Profile $profile) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
+        $result = $qb->select('(g.grade) AS grade', '(g.description) AS description', '(s.title) AS subject')
+            ->from('AppBundle:Grade', 'g')
+            ->leftJoin('g.subject', 's')
+            ->where('s.profile = :profile')
+            ->setParameter('profile', $profile);
+
+        return $result->setMaxResults(8)->getQuery()->getResult();
     }
 
 }

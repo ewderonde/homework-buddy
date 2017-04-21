@@ -24,7 +24,7 @@ class DashboardController extends BaseController
         $data['title'] = 'Dashboard';
         $data['current_path'] = 'dashboard';
         $data['today'] = $date->format('d-m-Y');
-        $data['tasks'] = $taskRepo->findTasksForDay($this->profile, $data['today'], 6);
+        $data['tasks'] = $taskRepo->findTasksForDay($this->profile, $data['today']);
 
         // Get counts of different task status.
         $complete = $taskRepo->getCompletedTaskCountForDay($this->profile, $data['today']);
@@ -42,8 +42,6 @@ class DashboardController extends BaseController
             $data['complete'] = 0;
         }
 
-
-
         $subjectRepo = $this->em->getRepository('AppBundle:Subject');
         $subjectsRaw = $subjectRepo->getProfileSubjects($this->profile);
 
@@ -51,6 +49,11 @@ class DashboardController extends BaseController
         foreach($subjectsRaw as $subject) {
             $data['subjects'][] = $subject->toArray();
         }
+
+
+        $gradeRepo = $this->em->getRepository('AppBundle:Subject');
+        $grades = $gradeRepo->getLatestGradesForProfile($this->profile);
+        $data['grades'] = $grades;
 
         return new Response($this->templating->render('dashboard/index.html.twig', $data));
     }

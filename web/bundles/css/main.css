@@ -34,7 +34,7 @@
     overflow-y: scroll;
 }
 .graph-data {
-    height: 785px;
+    height: 695px;
     overflow-y: scroll;
 }
 
@@ -78,6 +78,13 @@
     position: absolute;
     z-index: 1200;
     top: -66px;
+    right: 310px;
+}
+
+.loading-submit-subject-action {
+    position: absolute;
+    z-index: 1200;
+    top: 210px;
     right: 310px;
 }
 

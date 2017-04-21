@@ -22,7 +22,7 @@ class TaskRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('t.profile = :profile')
             ->setParameter('profile', $profile)
             ->setParameter('date', new \DateTime($date))
-            ->orderBy('t.timeStart', 'DESC');
+            ->orderBy('t.timeStart', 'ASC');
         if($limit) {
             $result = $result->setMaxResults($limit);
         }

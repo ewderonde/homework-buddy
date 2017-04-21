@@ -37,7 +37,7 @@ class PopupController extends BaseController
             ]);
         } else {
             $form = $this->formFactory->create(TaskType::class, $task, [
-                'time_start' => $task->getTimeStart()->format('H:i')
+                'time_start' => ($task->getTimeStart() != null)? $task->getTimeStart()->format('H:i'): ''
             ]);
 
             $action = 'edit';

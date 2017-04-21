@@ -18,7 +18,7 @@
     <div class="grade-line form-inline">
         <fieldset>
             <div class="form-group col-md-2">
-                {{ form_widget(form.grade, {'attr': { 'class': 'form-control'}} ) }}
+                {{ form_widget(form.grade, {'attr': { 'class': 'form-control', 'min': 0, 'max': 10 }} ) }}
             </div>
             <div class="input-group col-md-9">
                 {{ form_widget(form.description, {'attr': { 'class': 'form-control'}} ) }}

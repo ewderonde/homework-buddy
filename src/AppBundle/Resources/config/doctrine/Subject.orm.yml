@@ -19,6 +19,7 @@ AppBundle\Entity\Subject:
             column: description
             type: string
             length: 255
+            nullable: true
 
     oneToMany:
         tasks:

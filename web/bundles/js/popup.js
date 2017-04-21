@@ -71,6 +71,7 @@ var Popup = (function(){
         var submitForm = function () {
 
             $('.loading-submit-action').removeClass('hidden');
+            $('.loading-submit-subject-action').removeClass('hidden');
             console.log(action);
             // Submit data.
             $.ajax({
@@ -129,6 +130,7 @@ var Popup = (function(){
 
         var submitForm = function () {
             $('.loading-submit-action').removeClass('hidden');
+            $('.loading-submit-subject-action').removeClass('hidden');
 
             // Submit data.
             $.ajax({
