@@ -20,7 +20,7 @@ delete_task:
 change_task_status:
     path: /{id}/status
     defaults:
-        _controller: app.controller.agenda:changeTaskSatusDashboardAction
+        _controller: app.controller.agenda:changeTaskSatusAction
 
 change_task_status_dashboard:
     path: /{id}/status
